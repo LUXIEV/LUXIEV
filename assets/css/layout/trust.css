@@ -1,0 +1,102 @@
+/* ──────────────────────────────────────────────────────────
+     8. TRUST SECTION
+     ────────────────────────────────────────────────────────── */
+.trust {
+    background: var(--color-white);
+    color: var(--color-text);
+    padding: 40px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    font-family: var(--font-sans);
+}
+
+.trust__content-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--color-subtext);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+.trust__content-title {
+    font-size: 17px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    color: var(--color-subtext);
+}
+.trust__content-text {
+    font-size: 15px;
+    line-height: 2;
+    font-weight: 300;
+    color: var(--color-subtext);
+    margin-bottom: 20px;
+}
+
+.trust__cta {
+    display: inline-flex;
+    gap: 6px;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    color: var(--color-text);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    transition:
+        gap 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.trust__cta:hover {
+    gap: 10px;
+    color: var(--color-subtext);
+}
+
+.trust__cta-arrow {
+    transition: transform 0.25s ease;
+}
+
+.trust__cta:hover .about__cta-arrow {
+    transform: translateX(2px);
+}
+
+.turst__content-items {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.turst__content-item-title {
+    font-size: 15px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 300;
+
+    color: #111;
+    margin-bottom: 10px;
+}
+
+.turst__content-item-suptitle {
+    font-size: 13px;
+    font-weight: 300;
+    color: #777;
+}
+
+/* ── Fade-up on scroll ── */
+.trust [data-fade] {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+}
+
+.trust [data-fade].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
