@@ -1,69 +1,178 @@
-  /* ──────────────────────────────────────────────────────────
-     2. HEADER — HAMBURGER MENU TOGGLE (DROPDOWN MENU)
-     ────────────────────────────────────────────────────────── */
+/* ============================================================
+   HEADER SCRIPTS
+   1. HeaderScrollController   — toggles the white header background on scroll
+   2. NavDropdownController    — hamburger button + navigation dropdown
+   3. SearchToggleController   — simple search icon/overlay toggle
+   4. SearchOverlayController  — rich search overlay (autocomplete, recent
+                                  searches, results filtering, skeleton demo)
+   ============================================================ */
 
-  if (menuBtn && dropdownMenu) {
-    const isMenuOpen = () => {
-      return dropdownMenu.classList.contains("dropdown-Menu--active");
-    };
+/* ============================================================
+   1. HEADER SCROLL CONTROLLER
+   ------------------------------------------------------------
+   Watches the scroll position and, as soon as the user starts
+   scrolling (even by a single pixel), adds a modifier class that
+   switches the header from transparent to solid white.
 
-    const openMenu = () => {
-      dropdownMenu.classList.add("dropdown-Menu--active");
-      menuBtn.classList.add("active");
-    };
+   Uses the scroll event combined with requestAnimationFrame
+   throttling to keep things smooth and avoid unnecessary
+   recalculations on every scroll tick.
+   ============================================================ */
+const HeaderScrollController = (() => {
+  const SELECTORS = {
+    header: ".header"
+  };
 
-    const closeMenu = () => {
-      dropdownMenu.classList.remove("dropdown-Menu--active");
-      menuBtn.classList.remove("active");
-    };
+  const MODIFIER_CLASS = "header--scrolled";
 
-    const toggleMenu = () => {
-      if (isMenuOpen()) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
-    };
+  // Minimum scroll distance (in px) before the header switches to white.
+  // Kept at a low value so the effect triggers as soon as scrolling starts.
+  const SCROLL_THRESHOLD = 50;
 
-    // فتح وإغلاق القائمة
-    menuBtn.addEventListener("click", toggleMenu);
+  let headerEl = null;
+  let ticking = false; // prevents redundant updates within the same frame
 
-    // زر الإغلاق
-    if (dropdownClose) {
-      dropdownClose.addEventListener("click", closeMenu);
-    }
-
-    // زر Escape
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && isMenuOpen()) {
-        closeMenu();
-      }
-    });
-
-    // إغلاق عند الضغط على أي رابط
-    dropdownMenu.querySelectorAll('a[href^="#"]').forEach((link) => {
-      link.addEventListener("click", closeMenu);
-    });
-
-    // إغلاق عند الضغط على أي كارت
-    dropdownMenu.querySelectorAll(".product-card").forEach((card) => {
-      card.addEventListener("click", closeMenu);
-    });
-
-    // إغلاق عند الضغط خارج القائمة
-    document.addEventListener("click", (e) => {
-      if (!isMenuOpen()) return;
-
-      const clickedOutside = !menuBtn.contains(e.target) && !dropdownMenu.contains(e.target);
-
-      if (clickedOutside) {
-        closeMenu();
-      }
-    });
+  /**
+   * Updates the header's visual state based on the current scroll position.
+   */
+  function updateHeaderState() {
+    const hasScrolled = window.scrollY > SCROLL_THRESHOLD;
+    headerEl.classList.toggle(MODIFIER_CLASS, hasScrolled);
+    ticking = false;
   }
-  /* ──────────────────────────────────────────────────────────
-       3. HEADER — SEARCH OVERLAY
-       ────────────────────────────────────────────────────────── */
+
+  /**
+   * Fires on every scroll event, but defers the actual DOM update until
+   * the browser is ready to paint the next frame (requestAnimationFrame),
+   * so we don't overload the main thread during fast scrolling.
+   */
+  function handleScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(updateHeaderState);
+      ticking = true;
+    }
+  }
+
+  /**
+   * Confirms the header element exists before we start observing it.
+   * @returns {boolean}
+   */
+  function validateDependencies() {
+    if (!headerEl) {
+      console.warn(`HeaderScrollController: element "${SELECTORS.header}" not found on the page.`);
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Entry point.
+   */
+  function init() {
+    headerEl = document.querySelector(SELECTORS.header);
+
+    if (!validateDependencies()) return;
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // Set the correct initial state in case the page was reloaded
+    // while already scrolled down.
+    updateHeaderState();
+  }
+
+  /**
+   * Removes the event listener. Useful when running inside an SPA.
+   */
+  function destroy() {
+    window.removeEventListener("scroll", handleScroll);
+  }
+
+  return { init, destroy };
+})();
+
+document.addEventListener("DOMContentLoaded", () => {
+  HeaderScrollController.init();
+});
+
+/* ============================================================
+   2. NAV DROPDOWN CONTROLLER
+   ------------------------------------------------------------
+   Handles opening/closing the hamburger navigation dropdown:
+   toggle button, optional close button, Escape key, clicking a
+   link/card inside it, and clicking outside of it.
+   ============================================================ */
+(() => {
+  const navMenuButton = document.getElementById("navbarMenuBtn");
+  const navDropdown = document.getElementById("dropdownMenu");
+  const navDropdownCloseButton = document.getElementById("dropdownClose");
+
+  if (!navMenuButton || !navDropdown) return;
+
+  const isNavDropdownOpen = () => navDropdown.classList.contains("nav-dropdown--active");
+
+  const openNavDropdown = () => {
+    navDropdown.classList.add("nav-dropdown--active");
+    navMenuButton.classList.add("active");
+  };
+
+  const closeNavDropdown = () => {
+    navDropdown.classList.remove("nav-dropdown--active");
+    navMenuButton.classList.remove("active");
+  };
+
+  const toggleNavDropdown = () => {
+    if (isNavDropdownOpen()) {
+      closeNavDropdown();
+    } else {
+      openNavDropdown();
+    }
+  };
+
+  // Open/close via the hamburger button
+  navMenuButton.addEventListener("click", toggleNavDropdown);
+
+  // Optional dedicated close button
+  if (navDropdownCloseButton) {
+    navDropdownCloseButton.addEventListener("click", closeNavDropdown);
+  }
+
+  // Close on Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && isNavDropdownOpen()) {
+      closeNavDropdown();
+    }
+  });
+
+  // Close when clicking any in-page link inside the dropdown
+  navDropdown.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener("click", closeNavDropdown);
+  });
+
+  // Close when clicking any featured project card
+  navDropdown.querySelectorAll(".product-card").forEach((card) => {
+    card.addEventListener("click", closeNavDropdown);
+  });
+
+  // Close when clicking outside the button/dropdown
+  document.addEventListener("click", (e) => {
+    if (!isNavDropdownOpen()) return;
+
+    const clickedOutside = !navMenuButton.contains(e.target) && !navDropdown.contains(e.target);
+
+    if (clickedOutside) {
+      closeNavDropdown();
+    }
+  });
+})();
+
+/* ============================================================
+   3. SEARCH TOGGLE CONTROLLER
+   ------------------------------------------------------------
+   Simple toggle for the search overlay: swaps the header button's
+   icon (search <-> home) and shows/hides the overlay. Focuses the
+   search input whenever the overlay becomes active.
+   ============================================================ */
+(() => {
   const searchToggleBtn = document.getElementById("searchToggleBtn");
   const searchOverlay = document.getElementById("searchOverlay");
   const searchInput = document.querySelector(".search-overlay__input");
@@ -74,28 +183,46 @@
     searchToggleBtn.setAttribute("aria-label", isActive ? "Close search" : "Search");
     if (isActive) searchInput.focus();
   }
+
   searchToggleBtn?.addEventListener("click", toggleSearchOverlay);
 
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && searchOverlay.classList.contains("search-overlay--active")) {
+    if (e.key === "Escape" && searchOverlay?.classList.contains("search-overlay--active")) {
       toggleSearchOverlay();
     }
   });
+})();
 
-  /* ── SEARCH OVERLAY 2 ── */
-
+/* ============================================================
+   4. SEARCH OVERLAY CONTROLLER
+   ------------------------------------------------------------
+   Rich search experience: ghost-text autocomplete, recent
+   searches (persisted in localStorage), live results filtering
+   with an empty state, Enter-to-navigate, and a skeleton-loading
+   demo helper.
+   ============================================================ */
+(() => {
   const searchTrigger = document.getElementById("searchTrigger");
   const searchClose = document.getElementById("searchClose");
+  const searchOverlay = document.getElementById("searchOverlay");
+  const searchInput = document.querySelector(".search-overlay__input");
   const emptyState = document.getElementById("emptyState");
   const emptyQuery = document.getElementById("emptyQuery");
   const productGrid = document.getElementById("productGrid");
   const recentSearchesEl = document.getElementById("recentSearches");
   const productCards = document.querySelectorAll(".product-card");
   const ghostEl = document.getElementById("searchGhost");
+  const searchToggleBtn = document.getElementById("searchToggleBtn");
 
-  /* ── Suggested Terms ── */
+  if (!searchOverlay || !searchInput) return;
+
+  const RECENT_SEARCHES_STORAGE_KEY = "studio_recent_searches";
+  const MAX_RECENT_SEARCHES = 5;
+
+  // Terms suggested by the ghost-text autocomplete
   const suggestedTerms = ["New Website", "E-commerce", "work", "support", "brand", "Website"];
 
+  // Maps a matched term to the section it should scroll to
   const searchRoutes = {
     website: "#website",
     "New Website": "#New Website",
@@ -107,14 +234,19 @@
 
   let currentSuggestion = "";
 
-  /* ── Measure text width with the input's actual font (canvas trick) ── */
+  /* ── Measure text width using the input's actual font (canvas trick) ── */
   const measureCanvas = document.createElement("canvas");
   const measureCtx = measureCanvas.getContext("2d");
+
   function measureTextWidth(text) {
     measureCtx.font = getComputedStyle(searchInput).font;
     return measureCtx.measureText(text).width;
   }
 
+  /**
+   * Keeps the input's typed text and the ghost suggestion visually
+   * aligned by centering them together as one block.
+   */
   function alignInputAndGhost(query, match) {
     if (!match) {
       searchInput.style.textAlign = "center";
@@ -143,16 +275,17 @@
     searchOverlay.classList.remove("search-overlay--active");
     document.body.style.overflow = "";
     searchInput.value = "";
-    emptyState.classList.remove("search-overlay__empty--visible");
+    emptyState?.classList.remove("search-overlay__empty--visible");
     currentSuggestion = "";
     ghostEl.innerHTML = "";
     alignInputAndGhost("", null);
 
-    searchToggleBtn.classList.remove("active");
-    searchToggleBtn.setAttribute("aria-label", "Search");
+    searchToggleBtn?.classList.remove("active");
+    searchToggleBtn?.setAttribute("aria-label", "Search");
   }
-  const overlayLinks = searchOverlay.querySelectorAll('a[href^="#"]');
 
+  // Close the overlay when any in-page link inside it is clicked
+  const overlayLinks = searchOverlay.querySelectorAll('a[href^="#"]');
   overlayLinks.forEach((link) => {
     link.addEventListener("click", () => {
       closeSearch();
@@ -168,22 +301,22 @@
     }
   });
 
-  /* ── Recent Searches (localStorage) ── */
+  /* ── Recent searches (persisted via localStorage) ── */
   function getRecentSearches() {
-    return JSON.parse(localStorage.getItem("studio_recent_searches") || "[]");
+    return JSON.parse(localStorage.getItem(RECENT_SEARCHES_STORAGE_KEY) || "[]");
   }
 
   function saveRecentSearch(term) {
     if (!term.trim()) return;
     let recent = getRecentSearches().filter((t) => t.toLowerCase() !== term.toLowerCase());
     recent.unshift(term);
-    recent = recent.slice(0, 5);
-    localStorage.setItem("studio_recent_searches", JSON.stringify(recent));
+    recent = recent.slice(0, MAX_RECENT_SEARCHES);
+    localStorage.setItem(RECENT_SEARCHES_STORAGE_KEY, JSON.stringify(recent));
   }
 
   function removeRecentSearch(term) {
     const recent = getRecentSearches().filter((t) => t !== term);
-    localStorage.setItem("studio_recent_searches", JSON.stringify(recent));
+    localStorage.setItem(RECENT_SEARCHES_STORAGE_KEY, JSON.stringify(recent));
     renderRecentSearches();
   }
 
@@ -232,8 +365,10 @@
       return;
     }
 
-    const q = query.toLowerCase();
-    const match = suggestedTerms.find((term) => term.toLowerCase().startsWith(q) && term.length > query.length);
+    const normalizedQuery = query.toLowerCase();
+    const match = suggestedTerms.find(
+      (term) => term.toLowerCase().startsWith(normalizedQuery) && term.length > query.length
+    );
 
     if (!match) {
       currentSuggestion = "";
@@ -255,29 +390,29 @@
     ghostEl.innerHTML = "";
     currentSuggestion = "";
     searchInput.dispatchEvent(new Event("input"));
-    const len = searchInput.value.length;
-    searchInput.setSelectionRange(len, len);
+    const caretPosition = searchInput.value.length;
+    searchInput.setSelectionRange(caretPosition, caretPosition);
     return true;
   }
 
-  /* ── Search Input -> Suggestions + Empty State + Save on Enter ── */
+  /* ── Search input -> suggestions + empty state + save on Enter ── */
   searchInput.addEventListener("input", () => {
     const query = searchInput.value;
     renderGhost(query);
     const trimmedQuery = query.trim();
 
     if (trimmedQuery.length > 0) {
-      const matches = Array.from(productCards).some((card) =>
+      const hasMatch = Array.from(productCards).some((card) =>
         card.querySelector(".product-card__name").textContent.toLowerCase().includes(trimmedQuery.toLowerCase())
       );
-      if (!matches) {
+      if (!hasMatch) {
         emptyQuery.textContent = trimmedQuery;
         emptyState.classList.add("search-overlay__empty--visible");
       } else {
         emptyState.classList.remove("search-overlay__empty--visible");
       }
     } else {
-      emptyState.classList.remove("search-overlay__empty--visible");
+      emptyState?.classList.remove("search-overlay__empty--visible");
     }
   });
 
@@ -310,25 +445,31 @@
     }
   });
 
-  /* ── Skeleton Loading Demo (simulates fetch delay) ── */
+  /**
+   * Demo helper: renders skeleton placeholder cards to simulate a
+   * network fetch delay, then reloads the page to restore the real
+   * cards. Replace with a real fetch call in production.
+   */
   function showSkeletonThenLoad() {
     productGrid.innerHTML = "";
     for (let i = 0; i < 3; i++) {
       const skeleton = document.createElement("div");
       skeleton.className = "product-card product-card--skeleton";
       skeleton.innerHTML = `
-              <div class="product-card__image"></div>
-              <div class="product-card__info">
-                  <h4 class="product-card__name">Loading name</h4>
-                  <span class="product-card__price">Loading</span>
-              </div>
-          `;
+                <div class="product-card__image"></div>
+                <div class="product-card__info">
+                    <h4 class="product-card__name">Loading name</h4>
+                    <span class="product-card__price">Loading</span>
+                </div>
+            `;
       productGrid.appendChild(skeleton);
     }
-    // Simulated network delay — replace with real fetch in production
+    // Simulated network delay — replace with a real fetch in production
     setTimeout(() => {
-      location.reload(); // demo only: reload to restore real cards
+      location.reload(); // demo only: reload to restore the real cards
     }, 1200);
   }
-  // Uncomment to test on page load:
+
+  // Uncomment to test the skeleton-loading demo on page load:
   // showSkeletonThenLoad();
+})();

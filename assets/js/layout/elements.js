@@ -1,17 +1,17 @@
   /* ──────────────────────────────────────────────────────────
-       1. ELEMENT REFERENCES
-       ────────────────────────────────────────────────────────── */
+           1. ELEMENT REFERENCES
+           ────────────────────────────────────────────────────────── */
   // Header
   const menuBtn = document.getElementById("navbarMenuBtn") || document.querySelector(".navbar__menu-btn");
   const dropdownMenu = document.getElementById("dropdownMenu");
   const dropdownClose = document.getElementById("dropdownClose");
-  const header = document.querySelector(".site-header");
+  const header = document.querySelector(".header");
 
   // Stage
   const stageCta = document.getElementById("stage-cta");
   const stageSection = document.getElementById("stage");
   const workSection = document.getElementById("work");
-  const stageCardsTrack = document.getElementById("stage-cards-track");
+  const stageCardsTrack = document.getElementById("stage__cards-track");
   const stageCards = document.querySelectorAll(".stage__card");
   const stageVideos = document.querySelectorAll(".stage__video");
   const stageDotsWrap = document.getElementById("stage-dots");
@@ -25,7 +25,7 @@
   const workProgress = document.getElementById("work-progress");
   const workFilters = document.querySelectorAll(".work__filter");
   const workCards = document.querySelectorAll(".work__card");
- const newWebsiteBtn = document.querySelector(".cta__button");
+  const newWebsiteBtn = document.getElementById("startProjectBtn");
 
   // Wizard
   const wizardOverlay = document.getElementById("wizard-overlay");

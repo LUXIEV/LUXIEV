@@ -1,94 +1,152 @@
+/* ──────────────────────────────────────────────────────────
+   7. WORK — SLIDER, FILTERS & PROGRESS BAR
+   ────────────────────────────────────────────────────────── */
+let selectedType = "";
+
+function updateProgress() {
+  const max = workSlider.scrollWidth - workSlider.clientWidth;
+  workProgress.style.width = (max > 0 ? (workSlider.scrollLeft / max) * 100 : 0) + "%";
+}
+function scrollSlider(direction) {
+  workSlider.scrollBy({ left: direction * 220, behavior: "smooth" });
+}
+window.scrollSlider = scrollSlider;
+const slider = document.getElementById("slider__track");
+const dotsContainer = document.getElementById("slider__dots");
+
+/* ──────────────────────────────────────────────────────────
+   SLIDER PROGRESS
+   ────────────────────────────────────────────────────────── */
+
+function updateProgress() {
+  if (!slider) return;
+
+  const max = slider.scrollWidth - slider.clientWidth;
+
+  if (workProgress) {
+    workProgress.style.width = (max > 0 ? (slider.scrollLeft / max) * 100 : 0) + "%";
+  }
+}
+
+/* ──────────────────────────────────────────────────────────
+   SLIDER SCROLL
+   ────────────────────────────────────────────────────────── */
+
+function scrollSlider(direction) {
+  if (!slider) return;
+
+  slider.scrollBy({
+    left: direction * 220,
+    behavior: "smooth"
+  });
+}
+
+window.scrollSlider = scrollSlider;
+
+slider?.addEventListener("scroll", updateProgress);
+
+/* ──────────────────────────────────────────────────────────
+   INITIAL SLIDER POSITION
+   ────────────────────────────────────────────────────────── */
+
+window.addEventListener("load", () => {
+  if (!slider) return;
+
+  const cards = slider.querySelectorAll(".slider__card:not(.slider__card--cta)");
+
+  if (!cards.length) return;
+
+  const card = cards[2];
+
+  if (card) {
+    slider.scrollLeft = card.offsetLeft - slider.offsetWidth / 2 + card.offsetWidth / 2;
+  }
+
+  updateProgress();
+});
+
+/* ──────────────────────────────────────────────────────────
+   SLIDER DOTS
+   ────────────────────────────────────────────────────────── */
+
+function initSliderDots() {
+  if (!slider || !dotsContainer) return;
+
+  dotsContainer.innerHTML = "";
+
+  const cards = slider.querySelectorAll(".slider__card:not(.slider__card--cta):not(.hidden)");
+
+  cards.forEach((card, index) => {
+    const dot = document.createElement("button");
+
+    dot.type = "button";
+
+    dot.className = "slider__dot";
+
+    dot.setAttribute("aria-label", `Go to project ${index + 1}`);
+
+    if (index === 0) {
+      dot.classList.add("is-active");
+    }
+
+    dot.addEventListener("click", () => {
+      card.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest"
+      });
+    });
+
+    dotsContainer.appendChild(dot);
+  });
+
+  observeSliderCards(cards);
+}
+
+/* ──────────────────────────────────────────────────────────
+   OBSERVE CARDS
+   ────────────────────────────────────────────────────────── */
+
+function observeSliderCards(cards) {
+  if (!slider || !dotsContainer) return;
+
+  const dots = dotsContainer.querySelectorAll(".slider__dot");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        const index = Array.from(cards).indexOf(entry.target);
+
+        dots.forEach((dot) => {
+          dot.classList.remove("is-active");
+        });
+
+        if (dots[index]) {
+          dots[index].classList.add("is-active");
+        }
+      });
+    },
+    {
+      root: slider,
+      threshold: 0.6
+    }
+  );
+
+  cards.forEach((card) => {
+    observer.observe(card);
+  });
+}
+
+/* ──────────────────────────────────────────────────────────
+   INITIALIZE DOTS
+   ────────────────────────────────────────────────────────── */
+
+initSliderDots();
  /* ──────────────────────────────────────────────────────────
-      7. WORK — SLIDER, FILTERS & PROGRESS BAR
-      ────────────────────────────────────────────────────────── */
- let selectedType = "";
-
- function updateProgress() {
-   const max = workSlider.scrollWidth - workSlider.clientWidth;
-   workProgress.style.width = (max > 0 ? (workSlider.scrollLeft / max) * 100 : 0) + "%";
- }
- function scrollSlider(direction) {
-   workSlider.scrollBy({ left: direction * 220, behavior: "smooth" });
- }
- window.scrollSlider = scrollSlider;
- workSlider?.addEventListener("scroll", updateProgress);
-
- window.addEventListener("load", () => {
-   if (!workSlider) return;
-   const cards = workSlider.querySelectorAll(".work__card");
-   if (!cards.length) return;
-   const card = cards[2];
-   workSlider.scrollLeft = card.offsetLeft - workSlider.offsetWidth / 2 + card.offsetWidth / 2;
-   updateProgress();
- });
-
- workFilters.forEach((filter) => {
-   filter.addEventListener("click", () => {
-     workFilters.forEach((f) => {
-       f.classList.remove("active");
-       f.classList.add("dimmed");
-     });
-     filter.classList.add("active");
-     filter.classList.remove("dimmed");
-     const selected = filter.textContent.trim().toLowerCase().replace(/\s+/g, "-");
-     workCards.forEach((card) => {
-       card.classList.toggle("hidden", !(selected === "websites" || card.dataset.category === selected));
-     });
-     workSlider.scrollLeft = 0;
-     updateProgress();
-   });
- });
-
- const slider = document.getElementById("work-slider");
- const dotsContainer = document.getElementById("work-dots");
-
- function initWorkDots() {
-   dotsContainer.innerHTML = "";
-   const cards = slider.querySelectorAll(".work__card:not(.hidden)");
-
-   cards.forEach((card, i) => {
-     const dot = document.createElement("button");
-     dot.className = "work__dot";
-     dot.setAttribute("aria-label", `Go to project ${i + 1}`);
-     if (i === 0) dot.classList.add("is-active");
-
-     dot.addEventListener("click", () => {
-       card.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-     });
-
-     dotsContainer.appendChild(dot);
-   });
-
-   observeCards(cards);
- }
-
- function observeCards(cards) {
-   const dots = dotsContainer.querySelectorAll(".work__dot");
-
-   const observer = new IntersectionObserver(
-     (entries) => {
-       entries.forEach((entry) => {
-         if (entry.isIntersecting) {
-           const index = Array.from(cards).indexOf(entry.target);
-           dots.forEach((d) => d.classList.remove("is-active"));
-           if (dots[index]) dots[index].classList.add("is-active");
-         }
-       });
-     },
-     {
-       root: slider,
-       threshold: 0.6
-     }
-   );
-
-   cards.forEach((card) => observer.observe(card));
- }
-
- initWorkDots();
-
- /* ──────────────────────────────────────────────────────────
-      8. WIZARD — "NEW PROJECT" REQUEST MODAL
-      ────────────────────────────────────────────────────────── */
+        8. WIZARD — "NEW PROJECT" REQUEST MODAL
+        ────────────────────────────────────────────────────────── */
  let wizardSelectedType = "";
 
  function openWizard() {
