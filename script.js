@@ -20,13 +20,6 @@ const stageDotsWrap = document.getElementById("stage-dots");
 const trustSection = document.querySelector(".trust");
 const trustNumbers = document.querySelectorAll(".trust__number");
 
-// Work
-const workSlider = document.getElementById("work-slider");
-const workProgress = document.getElementById("work-progress");
-const workFilters = document.querySelectorAll(".work__filter");
-const workCards = document.querySelectorAll(".work__card");
-const newWebsiteBtn = document.getElementById("startProjectBtn");
-
 // Wizard
 const wizardOverlay = document.getElementById("wizard-overlay");
 const wizardCloseBtn = document.getElementById("wizard-close");
@@ -918,22 +911,31 @@ let activeSliderDot = null;
    WORK SLIDER — PERFORMANCE OPTIMIZED
 ────────────────────────────────────────────────────────── */
 
+const workSlider = document.getElementById("slider__track");
+const workProgress = document.getElementById("work-progress");
+const workFilters = document.querySelectorAll(".work__filter");
+const workCards = document.querySelectorAll(".slider__card:not(.slider__card--cta)");
+const newWebsiteBtn = document.getElementById("startProjectBtn");
+
+const workCurrentEl = document.getElementById("slider-current");
+const workTotalEl = document.getElementById("slider-total");
+
 let sliderProgressRaf = null;
+let workCardsObserver = null;
 
 /* ── Update Progress ────────────────────────────────────── */
 
 function updateProgress() {
-  if (!slider || !workProgress) return;
+  if (!workSlider || !workProgress) return;
 
-  const maxScroll = slider.scrollWidth - slider.clientWidth;
+  const maxScroll = workSlider.scrollWidth - workSlider.clientWidth;
 
   if (maxScroll <= 0) {
     workProgress.style.transform = "scaleX(0)";
     return;
   }
 
-  const progress = slider.scrollLeft / maxScroll;
-
+  const progress = workSlider.scrollLeft / maxScroll;
   workProgress.style.transform = `scaleX(${progress})`;
 }
 
@@ -951,9 +953,9 @@ function requestProgressUpdate() {
 /* ── Slider Scroll ──────────────────────────────────────── */
 
 function scrollSlider(direction) {
-  if (!slider) return;
+  if (!workSlider) return;
 
-  slider.scrollBy({
+  workSlider.scrollBy({
     left: direction * 220,
     behavior: "smooth"
   });
@@ -963,110 +965,59 @@ window.scrollSlider = scrollSlider;
 
 /* ── Optimized Scroll Listener ──────────────────────────── */
 
-slider?.addEventListener("scroll", requestProgressUpdate, { passive: true });
+workSlider?.addEventListener("scroll", requestProgressUpdate, { passive: true });
+
 /* ──────────────────────────────────────────────────────────
-   INITIAL SLIDER POSITION
+   WORK COUNTER
    ────────────────────────────────────────────────────────── */
+function initWorkCounter() {
+  if (!workSlider || !workCards.length) return;
 
-window.addEventListener("load", () => {
-  if (!slider) return;
+  const cards = Array.from(workCards).filter((card) => !card.classList.contains("hidden"));
 
-  const cards = slider.querySelectorAll(".slider__card:not(.slider__card--cta)");
-
-  if (!cards.length) return;
-
-  const card = cards[2];
-
-  if (card) {
-    slider.scrollLeft = card.offsetLeft - slider.offsetWidth / 2 + card.offsetWidth / 2;
+  if (workTotalEl) {
+    workTotalEl.textContent = cards.length; // ✅ من غير padStart
   }
 
-  updateProgress();
-});
+  workCardsObserver?.disconnect();
 
-/* ──────────────────────────────────────────────────────────
-   SLIDER DOTS
-   ────────────────────────────────────────────────────────── */
-
-function initSliderDots() {
-  if (!slider || !dotsContainer) return;
-
-  dotsContainer.innerHTML = "";
-  const cards = Array.from(slider.querySelectorAll(".slider__card:not(.slider__card--cta):not(.hidden)"));
-  cards.forEach((card, index) => {
-    const dot = document.createElement("button");
-
-    dot.type = "button";
-
-    dot.className = "slider__dot";
-
-    dot.setAttribute("aria-label", `Go to project ${index + 1}`);
-
-    if (index === 0) {
-      dot.classList.add("is-active");
-    }
-
-    dot.addEventListener("click", () => {
-      card.scrollIntoView({
-        behavior: "smooth",
-        inline: "center",
-        block: "nearest"
-      });
-    });
-
-    dotsContainer.appendChild(dot);
-  });
-
-  observeSliderCards(cards);
-}
-
-/* ──────────────────────────────────────────────────────────
-   OBSERVE CARDS
-   ────────────────────────────────────────────────────────── */
-function observeSliderCards(cards) {
-  if (!slider || !dotsContainer) return;
-
-  // Prevent duplicate IntersectionObservers
-  sliderCardsObserver?.disconnect();
-
-  const dots = dotsContainer.querySelectorAll(".slider__dot");
-
-  activeSliderDot = dots[0] || null;
-
-  sliderCardsObserver = new IntersectionObserver(
+  workCardsObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
 
         const index = cards.indexOf(entry.target);
-
         if (index === -1) return;
 
-        // Remove active state only from the previous dot
-        activeSliderDot?.classList.remove("is-active");
-
-        // Activate the new dot
-        activeSliderDot = dots[index];
-
-        activeSliderDot?.classList.add("is-active");
+        if (workCurrentEl) {
+          workCurrentEl.textContent = index + 1; // ✅ من غير padStart
+        }
       });
     },
     {
-      root: slider,
+      root: workSlider,
       threshold: 0.6
     }
   );
 
-  cards.forEach((card) => {
-    sliderCardsObserver.observe(card);
-  });
+  cards.forEach((card) => workCardsObserver.observe(card));
 }
-
 /* ──────────────────────────────────────────────────────────
-   INITIALIZE DOTS
+   INITIAL SLIDER POSITION
    ────────────────────────────────────────────────────────── */
 
-initSliderDots();
+window.addEventListener("load", () => {
+  if (!workSlider || !workCards.length) return;
+
+  const card = workCards[2];
+
+  if (card) {
+    workSlider.scrollLeft = card.offsetLeft - workSlider.offsetWidth / 2 + card.offsetWidth / 2;
+  }
+
+  updateProgress();
+  initWorkCounter();
+});
 /* ──────────────────────────────────────────────────────────
         8. WIZARD — "NEW PROJECT" REQUEST MODAL
         ────────────────────────────────────────────────────────── */
