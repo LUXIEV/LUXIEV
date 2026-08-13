@@ -623,7 +623,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .stage {
     position: relative;
     width: 100%;
-     height: 100dvh;
+    height: 100dvh;
     overflow: hidden;
 }
 
@@ -811,12 +811,8 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .trust {
     width: 100%;
-    min-height: 65vh;
 
     display: flex;
-    align-items: center;
-
-    gap: 55px;
 
     padding: 30px 10px;
 
@@ -824,33 +820,6 @@ input[type="search"]::-webkit-search-cancel-button {
     color: var(--color-text);
 
     font-family: var(--font-sans);
-}
-
-/* ── Image ── */
-
-.trust__image {
-    flex: 0 0 135px;
-
-    width: 135px;
-    height: 170px;
-
-    overflow: hidden;
-}
-
-.trust__image img {
-    width: 100%;
-    height: 100%;
-
-    display: block;
-
-    object-fit: cover;
-    filter: grayscale(100%);
-
-    transition: transform 0.6s ease;
-}
-
-.trust__image:hover img {
-    transform: scale(1.04);
 }
 
 /* ── Content ── */
@@ -864,10 +833,10 @@ input[type="search"]::-webkit-search-cancel-button {
 .trust__label {
     display: block;
 
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 
     font-size: 10px;
-    font-weight: 400;
+    font-weight: 300;
 
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -878,9 +847,9 @@ input[type="search"]::-webkit-search-cancel-button {
 /* ── Title ── */
 
 .trust__title {
-    margin: 0 0 18px;
+    margin: 0 0 10px;
 
-    font-size: 17px;
+    font-size: 16px;
     line-height: 1.6;
 
     font-weight: 300;
@@ -895,7 +864,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .trust__description {
     max-width: 430px;
 
-    margin: 0 0 35px;
+    margin: 0 0 20px;
 
     font-size: 13px;
     line-height: 1.9;
@@ -966,89 +935,6 @@ input[type="search"]::-webkit-search-cancel-button {
 .trust [data-fade].is-visible {
     opacity: 1;
     transform: translateY(0);
-}
-
-/* ──────────────────────────────────────────────────────────
-   MOBILE
-   ────────────────────────────────────────────────────────── */
-
-@media (max-width: 700px) {
-    .trust {
-        min-height: auto;
-
-        flex-direction: row;
-        align-items: flex-start;
-
-        gap: 20px;
-
-        padding: 30px 20px;
-    }
-
-    /* ── Image ── */
-
-    .trust__image {
-        flex: 0 0 85px;
-
-        width: 85px;
-        height: 110px;
-    }
-
-    /* ── Content ── */
-
-    .trust__content {
-        flex: 1;
-        min-width: 0;
-    }
-
-    /* ── Label ── */
-
-    .trust__label {
-        margin-bottom: 15px;
-
-        font-size: 10px;
-        letter-spacing: 0.14em;
-    }
-
-    /* ── Title ── */
-
-    .trust__title {
-        margin-bottom: 10px;
-
-        font-size: 16px;
-        line-height: 1.08;
-
-        letter-spacing: -0.035em;
-    }
-
-    /* ── Short Text ── */
-
-    .trust__text {
-        margin-bottom: 10px;
-
-        font-size: 13px;
-        line-height: 1.5;
-    }
-
-    /* ── Description ── */
-
-    .trust__description {
-        margin-bottom: 10px;
-
-        font-size: 11px;
-        line-height: 1.75;
-    }
-
-    /* ── CTA ── */
-
-    .trust__cta {
-        gap: 5px;
-
-        font-size: 7px;
-    }
-
-    .trust__cta span {
-        font-size: 7px;
-    }
 }
 
 /* ──────────────────────────────────────────────────────────
@@ -1289,19 +1175,31 @@ input[type="search"]::-webkit-search-cancel-button {
 .slider__controls {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 25fr 50fr 25fr; /* عداد 25% | بروجرس 50% | أسهم 25% */
     align-items: center;
     gap: 20px;
 }
-
+.slider__counter {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    font-size: 13px;
+    color: var(--color-black);
+    white-space: nowrap;
+}
+.slider__counter-sep {
+    opacity: 0.6;
+}
+#slider-total {
+    opacity: 0.6;
+}
 /* ── Arrows Group ── */
 .slider__arrows {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 100px;
+    gap: 20px;
 }
-
 /* ── Arrow ── */
 .slider__arrow {
     background: transparent;
@@ -1312,7 +1210,6 @@ input[type="search"]::-webkit-search-cancel-button {
     align-items: center;
     justify-content: center;
 }
-
 /* ──────────────────────────────────────────────────────────
    MATERIAL ICON
    ────────────────────────────────────────────────────────── */
@@ -1326,15 +1223,16 @@ input[type="search"]::-webkit-search-cancel-button {
         "opsz" 24;
     color: var(--color-black);
 }
-
 /* ──────────────────────────────────────────────────────────
    PROGRESS BAR
    ────────────────────────────────────────────────────────── */
 .slider__progress-wrap {
     width: 100%;
+    display: flex;
+    justify-content: center; /* يخليه في المنتصف */
 }
 .slider__progress-track {
-    width: 100%;
+    width: 100%; /* هياخد الـ 50% كاملة من العمود بتاعه */
     height: 1px;
     background: rgba(0, 0, 0, 0.12);
     position: relative;
@@ -1639,7 +1537,7 @@ input[type="search"]::-webkit-search-cancel-button {
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    margin: 22px 0;
+    margin: 25px 0;
     padding-left: 8px;
     transition: transform 0.25s ease;
 }
@@ -1673,6 +1571,7 @@ input[type="search"]::-webkit-search-cancel-button {
     margin-top: 20px;
     padding-top: 20px;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 8px;
 }
 .support h3 {
     font-weight: 300;
