@@ -25,7 +25,7 @@
     /* Typography */
     --font-Inter: "Inter", sans-serif;
     --font-sans: "Helvetica Neue", Arial, sans-serif;
-    --font-display: "Bilbo Swash Caps", cursive;
+
     --font-system: -apple-system, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
 
     /* Spacing Scale */
@@ -180,30 +180,39 @@ main {
     top: 50%;
     transform: translate(-50%, -50%);
 }
-
 .header__actions {
     display: flex;
     align-items: center;
     gap: var(--space-xs);
+    color: var(--color-black);
 }
 
-/* Search toggle button — swaps between a search icon and a home icon
-   depending on whether the search overlay is open (`.active`). */
+/* توحيد الـ box بتاع أي عنصر جوه header__actions */
+.header__actions a,
+.header__actions button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+}
+
 .header__search-btn {
     border: none;
     background: none;
     cursor: pointer;
     padding: 0;
     position: relative;
-    width: 20px;
-    height: 20px;
+    color: inherit;
+    /* width/height/display/align-items جايين دلوقتي من القاعدة الموحدة فوق */
 }
 
 .header__search-btn .icon-home {
     display: none;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* centering صح بدل top:0/left:0 */
 }
 
 .header__search-btn.active .icon-search {
@@ -217,13 +226,15 @@ main {
 /* ── Hamburger menu button ── */
 .navbar__menu-btn {
     width: 24px;
+    height: 20px; /* ضفتها عشان يبقى نفس ارتفاع باقي الأيقونات */
+    display: flex;
+    align-items: center;
     background: transparent;
-
     border: none;
     cursor: pointer;
+    padding: 0;
     position: relative;
 }
-
 .navbar__menu-btn span {
     position: absolute;
     left: 0;
@@ -680,7 +691,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .stage__content h1 {
     font-size: 16px;
-    font-weight: 300;
+    font-weight: 400;
     letter-spacing: 3px;
     margin-bottom: 5px;
 }
@@ -804,139 +815,104 @@ input[type="search"]::-webkit-search-cancel-button {
     align-items: center;
     gap: 7px;
 }
-
 /* ──────────────────────────────────────────────────────────
-   8. TRUST SECTION
+   TRUST SECTION
    ────────────────────────────────────────────────────────── */
-
 .trust {
     width: 100%;
-
     display: flex;
-
-    padding: 30px 10px;
-
+    justify-content: center;
+    padding: 40px 20px;
     background: var(--color-white);
-    color: var(--color-text);
-
-    font-family: var(--font-sans);
 }
-
-/* ── Content ── */
 
 .trust__content {
-    max-width: 620px;
+    max-width: 780px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 40px;
 }
 
-/* ── Label ── */
+/* ── Image ── */
+.trust__image {
+    flex-shrink: 0;
+    width: 130px;
+    height: 130px;
+    overflow: hidden;
+}
 
-.trust__label {
+.trust__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
+    filter: grayscale(100%);
+}
 
-    margin-bottom: 20px;
-
-    font-size: 10px;
-    font-weight: 300;
-
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-
-    color: var(--color-subtext);
+/* ── Text ── */
+.trust__text {
+    text-align: left;
 }
 
 /* ── Title ── */
-
 .trust__title {
-    margin: 0 0 10px;
-
+    margin: 0 0 20px;
+    font-family: var(--font-Inter);
     font-size: 16px;
-    line-height: 1.6;
-
-    font-weight: 300;
-
+    line-height: 1.5;
+    font-weight: 400;
     color: var(--color-text);
 }
 
-/* ── Short Text ── */
+.trust__title--italic {
+    font-style: italic;
+    font-weight: 300;
+}
 
 /* ── Description ── */
-
 .trust__description {
-    max-width: 430px;
-
-    margin: 0 0 20px;
-
+    font-family: var(--font-Inter);
+    max-width: 340px;
+    margin: 0;
     font-size: 13px;
-    line-height: 1.9;
-
+    line-height: 1.8;
     font-weight: 300;
-
+    letter-spacing: 0.02em;
     color: var(--color-subtext);
 }
 
-/* ── CTA ── */
-
-.trust__cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-
-    padding-bottom: 7px;
-
-    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-
-    color: var(--color-text);
-
-    font-size: 10px;
-    font-weight: 400;
-
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-
-    text-decoration: none;
-
-    transition:
-        gap 0.3s ease,
-        color 0.3s ease,
-        border-color 0.3s ease;
+/* ── Responsive: Mobile ── */
+@media (max-width: 767px) {
+    .trust {
+        padding: 40px 20px;
+    }
+    .trust__content {
+        gap: 20px;
+    }
+    .trust__text {
+        text-align: left;
+    }
+    .trust__title {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+    .trust__description {
+        font-size: 11px;
+        line-height: 1.7;
+    }
+    .trust__image {
+        width: 70px;
+        height: 70px;
+    }
 }
 
-.trust__cta:hover {
-    gap: 20px;
-
-    color: var(--color-subtext);
-
-    border-color: var(--color-text);
+/* ── Responsive: Desktop ── */
+@media (min-width: 768px) {
+    .trust__title {
+        font-size: 30px;
+    }
 }
-
-.trust__cta span {
-    font-size: 16px;
-    line-height: 1;
-
-    transition: transform 0.3s ease;
-}
-
-.trust__cta:hover span {
-    transform: translateX(1px);
-}
-
-/* ── Fade Animation ── */
-
-.trust [data-fade] {
-    opacity: 0;
-
-    transform: translateY(1px);
-
-    transition:
-        opacity 0.7s ease,
-        transform 0.7s ease;
-}
-
-.trust [data-fade].is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
 /* ──────────────────────────────────────────────────────────
    9. WORK SECTION
    ────────────────────────────────────────────────────────── */
@@ -950,7 +926,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .work__container {
     background: var(--color-beige);
-    padding: 30px 10px;
+    padding: 30px 20px;
     display: flex;
     flex-direction: column;
     gap: 50px;
@@ -1142,48 +1118,22 @@ input[type="search"]::-webkit-search-cancel-button {
     border-color: rgba(0, 0, 0, 0.5);
 }
 
-/* ── CTA Plus ── */
-
-.slider__card-plus {
-    font-size: 28px;
-    font-weight: 200;
-    color: rgba(0, 0, 0, 0.3);
-    line-height: 1;
-    transition: color 0.3s ease;
-}
-
-/* ── CTA Label ── */
-
-.slider__card-label {
-    font-size: 11px;
-    font-weight: 300;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.35);
-    transition: color 0.3s ease;
-}
-
-/* ── CTA Hover ── */
-
-.slider__card--cta:hover .slider__card-plus,
-.slider__card--cta:hover .slider__card-label {
-    color: rgba(0, 0, 0, 0.5);
-}
 /* ──────────────────────────────────────────────────────────
    SLIDER CONTROLS
    ────────────────────────────────────────────────────────── */
 .slider__controls {
+    padding-top: 10px;
     width: 100%;
     display: grid;
-    grid-template-columns: 25fr 50fr 25fr; /* عداد 25% | بروجرس 50% | أسهم 25% */
+    grid-template-columns: 10fr 70fr 20fr; /* عداد 25% | بروجرس 50% | أسهم 25% */
     align-items: center;
     gap: 20px;
 }
 .slider__counter {
     display: flex;
     align-items: baseline;
-    gap: 20px;
-    font-size: 13px;
+    gap: 10px;
+    font-size: 10px;
     color: var(--color-black);
     white-space: nowrap;
 }
@@ -1198,7 +1148,7 @@ input[type="search"]::-webkit-search-cancel-button {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 20px;
+    gap: 50px;
 }
 /* ── Arrow ── */
 .slider__arrow {
@@ -1248,62 +1198,7 @@ input[type="search"]::-webkit-search-cancel-button {
     transform-origin: left center;
     will-change: transform;
 }
-/* ──────────────────────────────────────────────────────────
-   cta__content
-   ────────────────────────────────────────────────────────── */
 
-/* Actions row */
-.cta__actions {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 16px;
-}
-.cta__divider {
-    width: 1px;
-    align-self: stretch;
-    background: rgba(0, 0, 0, 0.2);
-}
-
-.cta__button {
-    padding: 7px 17px;
-    font-size: 10px;
-    font-weight: 300;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    cursor: pointer;
-    font-family: inherit;
-    transition:
-        background 0.35s ease,
-        color 0.35s ease,
-        box-shadow 0.35s ease,
-        border-color 0.35s ease;
-}
-
-.cta__button--outline {
-    background: transparent;
-    border: 1px solid var(--color-black);
-    color: var(--color-black);
-}
-
-.cta__button--outline:hover {
-    background: var(--color-black);
-    color: var(--color-white);
-}
-
-.cta__button--filled {
-    background: var(--color-black);
-    border: 1px solid var(--color-black);
-    color: var(--color-white);
-}
-
-.cta__button--filled:hover {
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
-    opacity: 0.9;
-}
 /* ──────────────────────────────────────────────────────────
    10. WIZARD MODAL ("New Project" request flow)
    ────────────────────────────────────────────────────────── */
@@ -1513,6 +1408,85 @@ input[type="search"]::-webkit-search-cancel-button {
     padding: 30px 20px;
 }
 
+/* ──────────────────────────────────────────────────────────
+   cta__content
+   ────────────────────────────────────────────────────────── */
+.cta__wrap {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+/* Actions row */
+.cta__actions {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 16px;
+}
+
+.cta__divider {
+    flex-shrink: 0;
+    width: 1px;
+    height: 24px;
+    align-self: center;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.cta__button {
+    padding: 7px 17px;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: inherit;
+    transition:
+        background 0.35s ease,
+        color 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease;
+}
+
+.cta__button--outline {
+    background: transparent;
+    border: 1px solid var(--color-black);
+    color: var(--color-black);
+}
+
+.cta__button--outline:hover {
+    background: var(--color-black);
+    color: var(--color-white);
+}
+
+.cta__button--filled {
+    background: var(--color-black);
+    border: 1px solid var(--color-black);
+    color: var(--color-white);
+}
+
+.cta__button--filled:hover {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+    opacity: 0.9;
+}
+
+/* ── Lower section: info + image ── */
+.cta__lower {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.cta__info {
+    flex: 1 1 420px;
+}
+
 /* Guarantees */
 .cta__guarantees {
     position: relative;
@@ -1536,17 +1510,19 @@ input[type="search"]::-webkit-search-cancel-button {
     position: relative;
     display: flex;
     align-items: flex-start;
-    gap: 12px;
+    gap: 10px;
     margin: 25px 0;
-    padding-left: 8px;
     transition: transform 0.25s ease;
 }
+
 .cta__guarantee:first-child {
     margin-top: 0;
 }
+
 .cta__guarantee:last-child {
     margin-bottom: 0;
 }
+
 .cta__guarantee:hover {
     transform: translateX(4px);
 }
@@ -1562,35 +1538,122 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .cta__guarantee-text {
     color: var(--color-text-body);
-    font-size: 13px;
+    font-size: 10px;
     line-height: 1.6;
     margin: 0;
 }
 
+/* Support */
 .support {
     margin-top: 20px;
     padding-top: 20px;
+    padding-left: 10px;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
-    padding-left: 8px;
 }
+
 .support h3 {
-    font-weight: 300;
+    font-weight: 400;
     font-size: 16px;
     margin-bottom: 10px;
 }
+
 .support p {
     font-size: 13px;
     color: #444;
     line-height: 1.6;
+    font-weight: 300;
+    margin: 0;
 }
+
 .support a {
     display: inline-block;
-
     font-size: 13px;
     color: #000;
     text-decoration: underline;
 }
 
+.support__line {
+    display: block;
+    width: 40px;
+    height: 1px;
+    margin-top: 16px;
+    background: var(--color-black);
+    opacity: 0.3;
+}
+
+/* ── Image ── */
+.cta__image {
+    flex: 1 1 280px;
+    max-width: 320px;
+    height: 260px;
+    overflow: hidden;
+}
+
+.cta__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ── Responsive: Mobile ── */
+@media (max-width: 767px) {
+    .cta__lower {
+        flex-direction: column-reverse;
+        gap: 32px;
+    }
+    .cta__image {
+        width: 100%;
+        max-width: 100%;
+        height: 220px;
+    }
+    .cta__info {
+        width: 100%;
+    }
+}
+/* ──────────────────────────────────────────────────────────
+   STORY QUOTE SECTION
+   ────────────────────────────────────────────────────────── */
+.story-quote {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 90px 20px;
+    background: var(--color-white);
+    text-align: center;
+}
+
+.story-quote__content {
+    max-width: 560px;
+}
+
+.story-quote__label {
+    display: block;
+    margin-bottom: 22px;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-subtext);
+}
+
+.story-quote__text {
+    margin: 0 0 20px;
+    font-family: var(--font-serif, "Bodoni Moda", serif);
+    font-size: 24px;
+    line-height: 1.5;
+    font-weight: 400;
+    color: var(--color-text);
+}
+
+.story-quote__signature {
+    display: block;
+    font-family: var(--font-serif, serif);
+    font-style: italic;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--color-subtext);
+}
 /* ──────────────────────────────────────────────────────────
    FOOTER
    ────────────────────────────────────────────────────────── */
@@ -1598,7 +1661,7 @@ input[type="search"]::-webkit-search-cancel-button {
     font-family: var(--font-Inter);
     background: var(--color-black);
     color: var(--color-white);
-    padding: 20px 10px;
+    padding: 20px 20px;
 }
 
 .site-footer__top {
