@@ -1175,14 +1175,14 @@ input[type="search"]::-webkit-search-cancel-button {
     padding-top: 10px;
     width: 100%;
     display: grid;
-    grid-template-columns: 10fr 70fr 20fr; /* عداد 25% | بروجرس 50% | أسهم 25% */
+    grid-template-columns: 20fr 60fr 20fr; /* عداد 25% | بروجرس 50% | أسهم 25% */
     align-items: center;
     gap: 10px;
 }
 .slider__counter {
     display: flex;
     align-items: baseline;
-    gap: 5px;
+    gap: 10px;
     font-size: 10px;
     color: var(--color-black);
     white-space: nowrap;
