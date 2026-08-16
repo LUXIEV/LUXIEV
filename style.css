@@ -1172,34 +1172,40 @@ input[type="search"]::-webkit-search-cancel-button {
    SLIDER CONTROLS
    ────────────────────────────────────────────────────────── */
 .slider__controls {
-    padding-top: 10px;
+    padding-top: 14px;
     width: 100%;
     display: grid;
-    grid-template-columns: 20fr 60fr 20fr; /* عداد 25% | بروجرس 50% | أسهم 25% */
+    grid-template-columns: 20% 1fr 20%;
     align-items: center;
-    gap: 10px;
+    column-gap: 24px;
 }
+
+/* ── Counter ── */
 .slider__counter {
     display: flex;
     align-items: baseline;
-    gap: 10px;
+    gap: 7px;
     font-size: 10px;
     color: var(--color-black);
     white-space: nowrap;
 }
+
 .slider__counter-sep {
     opacity: 0.6;
 }
+
 #slider-total {
     opacity: 0.6;
 }
+
 /* ── Arrows Group ── */
 .slider__arrows {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 40px;
+    gap: 28px;
 }
+
 /* ── Arrow ── */
 .slider__arrow {
     background: transparent;
