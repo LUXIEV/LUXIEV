@@ -822,6 +822,8 @@ input[type="search"]::-webkit-search-cancel-button {
     width: 100%;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
     padding: 40px 20px;
     background: var(--color-white);
 }
@@ -881,6 +883,54 @@ input[type="search"]::-webkit-search-cancel-button {
     letter-spacing: 0.02em;
     color: var(--color-subtext);
 }
+.trust__meta {
+    width: 100%;
+    max-width: 780px;
+    margin: 20px auto 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    font-family: var(--font-Inter);
+    font-size: 11px;
+    line-height: 1.4;
+    font-weight: 300;
+
+    color: var(--color-subtext);
+}
+
+.trust__meta-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+
+    text-align: right;
+}
+
+.trust__meta-item {
+    display: flex;
+    gap: 4px;
+    justify-content: flex-end;
+}
+
+.trust__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    color: var(--color-text);
+
+    text-decoration: underline;
+    text-underline-offset: 4px;
+
+    transition: opacity 0.3s ease;
+}
+
+.trust__more:hover {
+    opacity: 0.55;
+}
 
 /* ── Responsive: Mobile ── */
 @media (max-width: 767px) {
@@ -902,8 +952,8 @@ input[type="search"]::-webkit-search-cancel-button {
         line-height: 1.7;
     }
     .trust__image {
-        width: 70px;
-        height: 70px;
+        width: 100px;
+        height: 101px;
     }
 }
 
@@ -1074,7 +1124,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .slider__card-type {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 300;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -1082,7 +1132,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .slider__card-name {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 300;
     color: var(--color-subtext);
 }
@@ -1148,7 +1198,7 @@ input[type="search"]::-webkit-search-cancel-button {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 50px;
+    gap: 60px;
 }
 /* ── Arrow ── */
 .slider__arrow {
@@ -1401,25 +1451,46 @@ input[type="search"]::-webkit-search-cancel-button {
     font-weight: 300;
     line-height: 1.6;
 }
-
-/* ── CTA Section ── */
-.cta {
+/* ── Project CTA Section ── */
+.project-cta {
     background: var(--color-white);
     padding: 30px 20px;
 }
 
-/* ──────────────────────────────────────────────────────────
-   cta__content
-   ────────────────────────────────────────────────────────── */
-.cta__wrap {
+.project-cta__label {
+    display: block;
+    font-size: 8px;
+    font-weight: 300;
+    color: var(--color-subtext);
+    letter-spacing: 7px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.project-cta__title {
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    color: var(--color-subtext);
+}
+
+.project-cta__text {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--color-subtext);
+    margin-bottom: 20px;
+}
+
+/* Actions wrap */
+.project-cta__wrap {
     display: flex;
-    justify-content: center;
     width: 100%;
     margin-bottom: 50px;
 }
 
-/* Actions row */
-.cta__actions {
+.project-cta__actions {
     position: relative;
     z-index: 1;
     display: flex;
@@ -1428,7 +1499,7 @@ input[type="search"]::-webkit-search-cancel-button {
     gap: 16px;
 }
 
-.cta__divider {
+.project-cta__divider {
     flex-shrink: 0;
     width: 1px;
     height: 24px;
@@ -1436,8 +1507,8 @@ input[type="search"]::-webkit-search-cancel-button {
     background: rgba(0, 0, 0, 0.2);
 }
 
-.cta__button {
-    padding: 7px 17px;
+.project-cta__button {
+    padding: 7px 59px;
     font-size: 10px;
     font-weight: 300;
     letter-spacing: 2px;
@@ -1451,30 +1522,42 @@ input[type="search"]::-webkit-search-cancel-button {
         border-color 0.35s ease;
 }
 
-.cta__button--outline {
+.project-cta__button--outline {
     background: transparent;
     border: 1px solid var(--color-black);
     color: var(--color-black);
 }
 
-.cta__button--outline:hover {
+.project-cta__button--outline:hover {
     background: var(--color-black);
     color: var(--color-white);
 }
 
-.cta__button--filled {
+.project-cta__button--filled {
     background: var(--color-black);
     border: 1px solid var(--color-black);
     color: var(--color-white);
 }
 
-.cta__button--filled:hover {
+.project-cta__button--filled:hover {
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
     opacity: 0.9;
 }
 
-/* ── Lower section: info + image ── */
-.cta__lower {
+/* Divider line between actions and lower content */
+.project-cta__divider-line {
+    display: block;
+    width: 219px;
+    height: 1px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+
+    background: var(--color-black);
+    opacity: 0.2;
+}
+
+/* Lower section: guarantees */
+.project-cta__lower {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1483,19 +1566,18 @@ input[type="search"]::-webkit-search-cancel-button {
     margin: 0 auto;
 }
 
-.cta__info {
+.project-cta__info {
     flex: 1 1 420px;
 }
 
-/* Guarantees */
-.cta__guarantees {
+.project-cta__guarantees {
     position: relative;
     padding-left: 10px;
     list-style: none;
     margin: 0;
 }
 
-.cta__guarantees::before {
+.project-cta__guarantees::before {
     content: "";
     position: absolute;
     top: 4px;
@@ -1503,10 +1585,10 @@ input[type="search"]::-webkit-search-cancel-button {
     left: 0;
     width: 1px;
     background: var(--color-black);
-    opacity: 0.15;
+    opacity: 0.2;
 }
 
-.cta__guarantee {
+.project-cta__guarantee {
     position: relative;
     display: flex;
     align-items: flex-start;
@@ -1515,19 +1597,19 @@ input[type="search"]::-webkit-search-cancel-button {
     transition: transform 0.25s ease;
 }
 
-.cta__guarantee:first-child {
+.project-cta__guarantee:first-child {
     margin-top: 0;
 }
 
-.cta__guarantee:last-child {
+.project-cta__guarantee:last-child {
     margin-bottom: 0;
 }
 
-.cta__guarantee:hover {
+.project-cta__guarantee:hover {
     transform: translateX(4px);
 }
 
-.cta__guarantee-icon {
+.project-cta__guarantee-icon {
     position: relative;
     top: 6px;
     width: 5px;
@@ -1536,123 +1618,11 @@ input[type="search"]::-webkit-search-cancel-button {
     border: 1px solid var(--color-text-muted);
 }
 
-.cta__guarantee-text {
+.project-cta__guarantee-text {
     color: var(--color-text-body);
     font-size: 10px;
     line-height: 1.6;
     margin: 0;
-}
-
-/* Support */
-.support {
-    margin-top: 20px;
-    padding-top: 20px;
-    padding-left: 10px;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.support h3 {
-    font-weight: 400;
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
-.support p {
-    font-size: 13px;
-    color: #444;
-    line-height: 1.6;
-    font-weight: 300;
-    margin: 0;
-}
-
-.support a {
-    display: inline-block;
-    font-size: 13px;
-    color: #000;
-    text-decoration: underline;
-}
-
-.support__line {
-    display: block;
-    width: 40px;
-    height: 1px;
-    margin-top: 16px;
-    background: var(--color-black);
-    opacity: 0.3;
-}
-
-/* ── Image ── */
-.cta__image {
-    flex: 1 1 280px;
-    max-width: 320px;
-    height: 260px;
-    overflow: hidden;
-}
-
-.cta__image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-/* ── Responsive: Mobile ── */
-@media (max-width: 767px) {
-    .cta__lower {
-        flex-direction: column-reverse;
-        gap: 32px;
-    }
-    .cta__image {
-        width: 100%;
-        max-width: 100%;
-        height: 220px;
-    }
-    .cta__info {
-        width: 100%;
-    }
-}
-/* ──────────────────────────────────────────────────────────
-   STORY QUOTE SECTION
-   ────────────────────────────────────────────────────────── */
-.story-quote {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 90px 20px;
-    background: var(--color-white);
-    text-align: center;
-}
-
-.story-quote__content {
-    max-width: 560px;
-}
-
-.story-quote__label {
-    display: block;
-    margin-bottom: 22px;
-    font-size: 10px;
-    font-weight: 300;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--color-subtext);
-}
-
-.story-quote__text {
-    margin: 0 0 20px;
-    font-family: var(--font-serif, "Bodoni Moda", serif);
-    font-size: 24px;
-    line-height: 1.5;
-    font-weight: 400;
-    color: var(--color-text);
-}
-
-.story-quote__signature {
-    display: block;
-    font-family: var(--font-serif, serif);
-    font-style: italic;
-    font-size: 14px;
-    font-weight: 300;
-    color: var(--color-subtext);
 }
 /* ──────────────────────────────────────────────────────────
    FOOTER
