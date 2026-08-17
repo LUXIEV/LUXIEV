@@ -34,36 +34,40 @@
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
-        <!-- HEADER -->
         <!-- ============================================================
-     SITE HEADER
-     Contains: hamburger menu trigger, navigation dropdown
-     (quick links + featured projects preview), centered logo,
-     and header actions (account link + search toggle button).
-     ============================================================ -->
+             SITE HEADER
+             Contains: hamburger menu trigger, navigation dropdown
+             (quick links + featured projects preview), centered logo,
+             and header actions (account link + search toggle button).
+             ============================================================ -->
         <header class="header" role="banner">
             <div class="header__container">
                 <!-- Hamburger button — toggles the navigation dropdown below -->
-                <button class="navbar__menu-btn" id="navbarMenuBtn" aria-label="Menu">
+                <button
+                    class="navbar__menu-btn"
+                    id="navbarMenuBtn"
+                    aria-label="Menu"
+                    aria-controls="dropdownMenu"
+                    aria-expanded="false">
                     <span></span>
                     <span></span>
                 </button>
 
                 <!-- ============================================================
-             NAVIGATION DROPDOWN
-             Visibility is controlled by toggling the
-             `.nav-dropdown--active` class (see header.js).
-             ============================================================ -->
+                     NAVIGATION DROPDOWN
+                     Visibility is controlled by toggling the
+                     `.nav-dropdown--active` class (see script.js).
+                     ============================================================ -->
                 <div class="nav-dropdown" id="dropdownMenu">
                     <div class="nav-dropdown__wrapper">
                         <!-- Quick links -->
-                        <div class="nav-dropdown__quick-links">
+                        <nav class="nav-dropdown__quick-links" aria-label="Quick links">
                             <h2 class="nav-dropdown__quick-links-title">The Main</h2>
                             <a class="nav-dropdown__quick-link" href="#stage">Stage</a>
                             <a class="nav-dropdown__quick-link" href="#trust">Trust</a>
                             <a class="nav-dropdown__quick-link" href="#work">Work</a>
                             <a class="nav-dropdown__quick-link" href="#work__cta-btn">New Website</a>
-                        </div>
+                        </nav>
 
                         <!-- Featured projects preview -->
                         <div class="nav-dropdown__products">
@@ -129,14 +133,16 @@
                             stroke-width="1"
                             stroke-linecap="round"
                             stroke-linejoin="round"
-                            class="lucide lucide-user-icon lucide-user">
+                            class="lucide lucide-user-icon lucide-user"
+                            aria-hidden="true"
+                            focusable="false">
                             <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
                             <circle cx="12" cy="7" r="4" />
                         </svg>
                     </a>
 
                     <!-- Toggles the search overlay. Icon swaps between search/home
-                 via the `.active` modifier class (see header.js). -->
+                         via the `.active` modifier class (see script.js). -->
                     <button class="header__search-btn" id="searchToggleBtn" aria-label="Search">
                         <!-- Search icon — shown by default -->
                         <svg
@@ -149,7 +155,9 @@
                             stroke-width="1"
                             stroke-linecap="round"
                             stroke-linejoin="round"
-                            class="lucide lucide-search-icon lucide-search icon-search">
+                            class="lucide lucide-search-icon lucide-search icon-search"
+                            aria-hidden="true"
+                            focusable="false">
                             <path d="m21 21-4.34-4.34" />
                             <circle cx="11" cy="11" r="8" />
                         </svg>
@@ -164,7 +172,9 @@
                             stroke-width="1"
                             stroke-linecap="round"
                             stroke-linejoin="round"
-                            class="lucide lucide-home-icon lucide-home icon-home">
+                            class="lucide lucide-home-icon lucide-home icon-home"
+                            aria-hidden="true"
+                            focusable="false">
                             <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
                             <path d="M9 22V12h6v10" />
                         </svg>
@@ -173,9 +183,12 @@
             </div>
         </header>
         <main>
-            <!--  -->
+            <!-- ============================================================
+                 STAGE — hero video background, headline/CTA, project cards
+                 ============================================================ -->
             <section id="stage" class="stage">
-                <!--  -->
+                <!-- Background video stack: only the `.is-active` video is
+                     visible/playing; others are lazily loaded (see script.js) -->
                 <div class="stage__videos">
                     <video class="stage__video is-active" data-index="0" autoplay muted loop playsinline>
                         <source src="assets/videos/maiso.webm" type="video/webm" />
@@ -197,16 +210,16 @@
                     </video>
                 </div>
 
-                <!--  -->
+                <!-- Darkening overlay for text legibility -->
                 <div class="stage__scrim"></div>
-                <!-- -->
 
                 <div class="stage__content">
                     <h1>Make Your Website</h1>
                     <p>Elevate Your Brand</p>
                     <button id="stage-cta" class="stage__cta">Explore Now</button>
                 </div>
-                <!--  -->
+
+                <!-- Project cards, pinned to the bottom of the stage -->
                 <div class="stage__cards">
                     <div class="stage__cards-track-wrap">
                         <div class="stage__cards-track" id="stage__cards-track">
@@ -278,32 +291,32 @@
                     </div>
                 </div>
             </section>
-            <!-- TRUST Animated stat counters + client logos -->
+
+            <!-- ============================================================
+                 TRUST — brand statement + stat/meta strip
+                 ============================================================ -->
             <section id="trust" class="trust">
                 <div class="trust__content">
-                    <div class="trust__image">
-                        <img src="/assets/images/3.webp" alt="Leadership coaching moment" />
-                    </div>
                     <div class="trust__text">
-                        <h2 class="trust__title">
-                            Your next level of<br />
-                            leadership starts <span class="trust__title--italic">here.</span>
-                        </h2>
+                        <h2 class="trust__title">The art of <span class="trust__title--italic">becoming</span></h2>
+
                         <p class="trust__description">
-                            This isn't just personal statement, it's power. Reclaim your identity, unlearn what version
-                            of who you were told, and build a legacy that's yours.
+                            Everything begins as an idea A thought without form A feeling without a name A possibility
+                            waiting for its moment What follows is not simply creation but transformation — the gradual
+                            passage from what something could be into what it was meant to become We are drawn to what
+                            survives its first impression To objects ideas and experiences that reveal something new
+                            each time they are encountered Perhaps this is what timelessness really means. Not remaining
+                            unchanged but remaining meaningful
                         </p>
                     </div>
                 </div>
                 <div class="trust__meta">
                     <a href="#" class="trust__more"> View More </a>
-
                     <div class="trust__meta-info">
                         <div class="trust__meta-item">
                             <span>Year —</span>
                             <span>2026</span>
                         </div>
-
                         <div class="trust__meta-item">
                             <span>Focus —</span>
                             <span>Digital Experiences</span>
@@ -312,11 +325,22 @@
                 </div>
             </section>
 
+            <!-- ============================================================
+                 WORK — horizontally scrollable project slider
+                 ============================================================ -->
             <section id="work" class="work">
                 <div class="work__container">
+                    <div class="work__filters">
+                        <button type="button" class="work__filter is-active" data-filter="all">Websites</button>
+                        <button type="button" class="work__filter" data-filter="E-commerce">E-commerce</button>
+                        <button type="button" class="work__filter" data-filter="landing page">landing page</button>
+                        <button type="button" class="work__filter" data-filter="personal Website">
+                            personal Website
+                        </button>
+                    </div>
                     <div class="slider">
                         <div class="slider__track" id="slider__track">
-                            <article class="slider__card" data-category="websites">
+                            <article class="slider__card" data-category="E-commerce">
                                 <div class="slider__card-media">
                                     <img src="assets/images/3.webp" alt="Project preview" class="slider__card-image" />
 
@@ -333,7 +357,7 @@
                                     <p class="slider__card-name">Maison Noir</p>
                                 </div>
                             </article>
-                            <article class="slider__card" data-category="websites">
+                            <article class="slider__card" data-category="E-commerce">
                                 <div class="slider__card-media">
                                     <img
                                         src="assets/images/luxiev.webp"
@@ -355,7 +379,7 @@
                                 </div>
                             </article>
 
-                            <article class="slider__card" data-category="websites">
+                            <article class="slider__card" data-category="E-commerce">
                                 <div class="slider__card-media">
                                     <img
                                         src="assets/images/luxiev.webp"
@@ -376,7 +400,7 @@
                                     <p class="slider__card-name">Maison Noir</p>
                                 </div>
                             </article>
-                            <article class="slider__card" data-category="websites">
+                            <article class="slider__card" data-category="personal Website">
                                 <div class="slider__card-media">
                                     <img
                                         src="assets/images/luxiev.webp"
@@ -397,7 +421,7 @@
                                     <p class="slider__card-name">Maison Noir</p>
                                 </div>
                             </article>
-                            <article class="slider__card" data-category="websites">
+                            <article class="slider__card" data-category="landing page">
                                 <div class="slider__card-media">
                                     <img
                                         src="assets/images/luxiev.webp"
@@ -418,28 +442,7 @@
                                     <p class="slider__card-name">Maison Noir</p>
                                 </div>
                             </article>
-                            <article class="slider__card" data-category="websites">
-                                <div class="slider__card-media">
-                                    <img
-                                        src="assets/images/luxiev.webp"
-                                        alt="Project preview"
-                                        loading="lazy"
-                                        class="slider__card-image" />
-
-                                    <div class="slider__card-overlay">
-                                        <a href="#" target="_blank" rel="noopener" class="slider__card-link">
-                                            Visit Website
-                                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="slider__card-caption">
-                                    <h3 class="slider__card-type">Luxury Fashion</h3>
-                                    <p class="slider__card-name">Maison Noir</p>
-                                </div>
-                            </article>
-                            <article class="slider__card" data-category="websites">
+                            <article class="slider__card" data-category="landing page">
                                 <div class="slider__card-media">
                                     <img
                                         src="assets/images/luxiev.webp"
@@ -506,9 +509,9 @@
 
                         <div class="slider__controls">
                             <div class="slider__counter">
-                                <span id="slider-current">1</span>
+                                <span id="slider-current"></span>
                                 <span class="slider__counter-sep">OF</span>
-                                <span id="slider-total">6</span>
+                                <span id="slider-total"></span>
                             </div>
 
                             <div class="slider__progress-wrap">
@@ -529,7 +532,9 @@
                                         viewBox="0 0 24 24"
                                         fill="none"
                                         stroke="currentColor"
-                                        stroke-width="1">
+                                        stroke-width="1"
+                                        aria-hidden="true"
+                                        focusable="false">
                                         <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </button>
@@ -544,7 +549,9 @@
                                         viewBox="0 0 24 24"
                                         fill="none"
                                         stroke="currentColor"
-                                        stroke-width="1">
+                                        stroke-width="1"
+                                        aria-hidden="true"
+                                        focusable="false">
                                         <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                 </button>
@@ -554,6 +561,9 @@
                 </div>
             </section>
 
+            <!-- ============================================================
+                 PROJECT CTA — "Start Your Project" banner + guarantees
+                 ============================================================ -->
             <section class="project-cta">
                 <h2 class="project-cta__title">Create Your Website</h2>
                 <p class="project-cta__text">Don't pay until you receive your website</p>
@@ -591,12 +601,16 @@
                     </div>
                 </div>
             </section>
+            <section class="suport"></section>
         </main>
-        <!--  FOOTER  -->
+
+        <!-- ============================================================
+             FOOTER
+             ============================================================ -->
         <footer class="site-footer">
             <div class="site-footer__top">
                 <div class="site-footer__brand">
-                    <img class="site-footer__logo" src="/assets/images/logos/LUXIEV-Footer.svg" />
+                    <img class="site-footer__logo" src="/assets/images/logos/LUXIEV-Footer.svg" alt="LUXIEV" />
                     <p class="site-footer__tagline">The Details Tell The Story &amp; Every Details Matters</p>
                 </div>
 
@@ -608,22 +622,24 @@
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="Instagram">
-                            <i class="fa-brands fa-instagram"></i>
+                            <i class="fa-brands fa-instagram" aria-hidden="true"></i>
                         </a>
                         <a
                             href="https://pinterest.com/iluxiev"
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="Pinterest">
-                            <i class="fa-brands fa-pinterest"></i>
+                            <i class="fa-brands fa-pinterest" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>
             </div>
         </footer>
 
-        <!--  SEARCH OVERLAY  -->
-        <div class="search-overlay" id="searchOverlay">
+        <!-- ============================================================
+             SEARCH OVERLAY
+             ============================================================ -->
+        <div class="search-overlay" id="searchOverlay" role="dialog" aria-modal="true" aria-label="Search">
             <div class="search-overlay__wrapper">
                 <div class="search-overlay__input-wrap">
                     <div class="search-overlay__ghost" id="searchGhost" aria-hidden="true"></div>
@@ -704,8 +720,18 @@
                 </div>
             </div>
         </div>
-        <!--  WIZARD MODAL 3-step "New Project" request flow, opened from the Work section's CTA card. -->
-        <div class="wizard-overlay" id="wizard-overlay">
+
+        <!-- ============================================================
+             WIZARD MODAL
+             3-step "New Project" request flow, opened from the Work
+             section's CTA card and the "Start Your Project" button.
+             ============================================================ -->
+        <div
+            class="wizard-overlay"
+            id="wizard-overlay"
+            role="dialog"
+            aria-modal="true"
+            aria-label="New project request">
             <div class="wizard">
                 <div class="wizard__indicator">
                     <div class="wizard__dot" id="dot-1"></div>
@@ -718,22 +744,28 @@
                     <h2 class="wizard__title">What kind of Website</h2>
                     <div class="wizard__types">
                         <button class="wizard__type" data-type="E-Commerce">
-                            <span class="wizard__type-icon">🛍️</span><span class="wizard__type-name">E-Commerce</span>
+                            <span class="wizard__type-icon" aria-hidden="true">🛍️</span>
+                            <span class="wizard__type-name">E-Commerce</span>
                         </button>
                         <button class="wizard__type" data-type="Portfolio">
-                            <span class="wizard__type-icon">🎨</span><span class="wizard__type-name">Portfolio</span>
+                            <span class="wizard__type-icon" aria-hidden="true">🎨</span>
+                            <span class="wizard__type-name">Portfolio</span>
                         </button>
                         <button class="wizard__type" data-type="Landing Page">
-                            <span class="wizard__type-icon">🚀</span><span class="wizard__type-name">Landing Page</span>
+                            <span class="wizard__type-icon" aria-hidden="true">🚀</span>
+                            <span class="wizard__type-name">Landing Page</span>
                         </button>
                         <button class="wizard__type" data-type="SaaS">
-                            <span class="wizard__type-icon">⚙️</span><span class="wizard__type-name">SaaS</span>
+                            <span class="wizard__type-icon" aria-hidden="true">⚙️</span>
+                            <span class="wizard__type-name">SaaS</span>
                         </button>
                         <button class="wizard__type" data-type="Educational">
-                            <span class="wizard__type-icon">📚</span><span class="wizard__type-name">Educational</span>
+                            <span class="wizard__type-icon" aria-hidden="true">📚</span>
+                            <span class="wizard__type-name">Educational</span>
                         </button>
                         <button class="wizard__type" data-type="Other">
-                            <span class="wizard__type-icon">💡</span><span class="wizard__type-name">Other</span>
+                            <span class="wizard__type-icon" aria-hidden="true">💡</span>
+                            <span class="wizard__type-name">Other</span>
                         </button>
                     </div>
                     <button class="wizard__next" id="next-1" disabled>Next</button>
@@ -750,7 +782,7 @@
                 <!-- Step 3: confirmation -->
                 <div class="wizard__step" id="step-3">
                     <div class="wizard__success">
-                        <div class="wizard__success-icon">✓</div>
+                        <div class="wizard__success-icon" aria-hidden="true">✓</div>
                         <h2 class="wizard__success-title">Request Sent</h2>
                         <p class="wizard__success-text">
                             Thanks for reaching out — we'll get back to you shortly to discuss your project
