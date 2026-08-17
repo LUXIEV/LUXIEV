@@ -958,7 +958,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .work__filters {
     display: flex;
     justify-content: center;
-    gap: 19px;
+    gap: 15px;
     flex-wrap: wrap;
 }
 
