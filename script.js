@@ -1,24 +1,30 @@
+/* ════════════════════════════════════════════════════════════
+   TABLE OF CONTENTS
+   1.  Element References
+   2.  Header Scroll Controller
+   3.  Nav Dropdown Controller
+   4.  Search Toggle Controller
+   5.  Search Overlay Controller
+   6.  Stage — Scroll-to-Work (CTA button)
+   7.  Stage — Video Switcher + Card Slider + Auto-Advance
+   8.  Trust — Scroll-Reveal / Animated Stat Counters
+   9.  Work Section — Slider (progress bar, arrows, counter)
+   10. Wizard — "New Project" Request Modal
+   ════════════════════════════════════════════════════════════ */
+
 /* ──────────────────────────────────────────────────────────
-           1. ELEMENT REFERENCES
-           ────────────────────────────────────────────────────────── */
+   1. ELEMENT REFERENCES
+   ────────────────────────────────────────────────────────── */
 // Header
-const menuBtn = document.getElementById("navbarMenuBtn") || document.querySelector(".navbar__menu-btn");
-const dropdownMenu = document.getElementById("dropdownMenu");
-const dropdownClose = document.getElementById("dropdownClose");
 const header = document.querySelector(".header");
 
 // Stage
 const stageCta = document.getElementById("stage-cta");
-const stageSection = document.getElementById("stage");
 const workSection = document.getElementById("work");
 const stageCardsTrack = document.getElementById("stage__cards-track");
 const stageCards = document.querySelectorAll(".stage__card");
 const stageVideos = document.querySelectorAll(".stage__video");
 const stageDotsWrap = document.getElementById("stage-dots");
-
-// Trust
-const trustSection = document.querySelector(".trust");
-const trustNumbers = document.querySelectorAll(".trust__number");
 
 // Wizard
 const wizardOverlay = document.getElementById("wizard-overlay");
@@ -38,18 +44,9 @@ const wizardDots = [
   document.getElementById("dot-3")
 ];
 
-/* ============================================================
-   HEADER SCRIPTS
-   1. HeaderScrollController   — toggles the white header background on scroll
-   2. NavDropdownController    — hamburger button + navigation dropdown
-   3. SearchToggleController   — simple search icon/overlay toggle
-   4. SearchOverlayController  — rich search overlay (autocomplete, recent
-                                  searches, results filtering, skeleton demo)
-   ============================================================ */
-
-/* ============================================================
-   1. HEADER SCROLL CONTROLLER
-   ------------------------------------------------------------
+/* ════════════════════════════════════════════════════════════
+   2. HEADER SCROLL CONTROLLER
+   ----------------------------------------------------------
    Watches the scroll position and, as soon as the user starts
    scrolling (even by a single pixel), adds a modifier class that
    switches the header from transparent to solid white.
@@ -57,7 +54,7 @@ const wizardDots = [
    Uses the scroll event combined with requestAnimationFrame
    throttling to keep things smooth and avoid unnecessary
    recalculations on every scroll tick.
-   ============================================================ */
+   ════════════════════════════════════════════════════════════ */
 const HeaderScrollController = (() => {
   const SELECTORS = {
     header: ".header"
@@ -134,13 +131,13 @@ document.addEventListener("DOMContentLoaded", () => {
   HeaderScrollController.init();
 });
 
-/* ============================================================
-   2. NAV DROPDOWN CONTROLLER
-   ------------------------------------------------------------
+/* ════════════════════════════════════════════════════════════
+   3. NAV DROPDOWN CONTROLLER
+   ----------------------------------------------------------
    Handles opening/closing the hamburger navigation dropdown:
    toggle button, optional close button, Escape key, clicking a
    link/card inside it, and clicking outside of it.
-   ============================================================ */
+   ════════════════════════════════════════════════════════════ */
 (() => {
   const navMenuButton = document.getElementById("navbarMenuBtn");
   const navDropdown = document.getElementById("dropdownMenu");
@@ -153,11 +150,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const openNavDropdown = () => {
     navDropdown.classList.add("nav-dropdown--active");
     navMenuButton.classList.add("active");
+    navMenuButton.setAttribute("aria-expanded", "true");
   };
 
   const closeNavDropdown = () => {
     navDropdown.classList.remove("nav-dropdown--active");
     navMenuButton.classList.remove("active");
+    navMenuButton.setAttribute("aria-expanded", "false");
   };
 
   const toggleNavDropdown = () => {
@@ -205,13 +204,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 })();
 
-/* ============================================================
-   3. SEARCH TOGGLE CONTROLLER
-   ------------------------------------------------------------
+/* ════════════════════════════════════════════════════════════
+   4. SEARCH TOGGLE CONTROLLER
+   ----------------------------------------------------------
    Simple toggle for the search overlay: swaps the header button's
    icon (search <-> home) and shows/hides the overlay. Focuses the
    search input whenever the overlay becomes active.
-   ============================================================ */
+   ════════════════════════════════════════════════════════════ */
 (() => {
   const searchToggleBtn = document.getElementById("searchToggleBtn");
   const searchOverlay = document.getElementById("searchOverlay");
@@ -233,14 +232,14 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 })();
 
-/* ============================================================
-   4. SEARCH OVERLAY CONTROLLER
-   ------------------------------------------------------------
+/* ════════════════════════════════════════════════════════════
+   5. SEARCH OVERLAY CONTROLLER
+   ----------------------------------------------------------
    Rich search experience: ghost-text autocomplete, recent
    searches (persisted in localStorage), live results filtering
    with an empty state, Enter-to-navigate, and a skeleton-loading
    demo helper.
-   ============================================================ */
+   ════════════════════════════════════════════════════════════ */
 (() => {
   const searchTrigger = document.getElementById("searchTrigger");
   const searchClose = document.getElementById("searchClose");
@@ -529,7 +528,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 /* ──────────────────────────────────────────────────────────
-   4. STAGE — SCROLL-TO-WORK (CTA BUTTON)
+   6. STAGE — SCROLL-TO-WORK (CTA BUTTON)
    ────────────────────────────────────────────────────────── */
 function scrollToWork(e) {
   if (!stageCta || !workSection) return;
@@ -540,9 +539,10 @@ function scrollToWork(e) {
   window.scrollTo({ top: offsetPosition, behavior: "smooth" });
 }
 stageCta?.addEventListener("click", scrollToWork);
-/* ──────────────────────────────────────────────────────────
-   5. STAGE — VIDEO SWITCHER + SLIDER + AUTO-ADVANCE
-   ────────────────────────────────────────────────────────── */
+
+/* ════════════════════════════════════════════════════════════
+   7. STAGE — VIDEO SWITCHER + CARD SLIDER + AUTO-ADVANCE
+   ════════════════════════════════════════════════════════════ */
 let stageCurrentIndex = 0;
 
 let stageAutoTimer = null;
@@ -550,8 +550,8 @@ let stageScrollEndTimer = null;
 let stageCenterScrollTimer = null;
 
 let stageIsScrolling = false;
-/* ── Stage Dots ─────────────────────────────────────────── */
 
+/* ── Stage dots ── */
 stageCards.forEach((_, index) => {
   const dot = document.createElement("button");
 
@@ -568,8 +568,7 @@ stageCards.forEach((_, index) => {
 
 const stageDots = document.querySelectorAll(".stage__dot");
 
-/* ── Load Video Only When Needed ────────────────────────── */
-
+/* ── Load video only when needed ── */
 function loadStageVideo(index) {
   const video = stageVideos[index];
 
@@ -585,8 +584,7 @@ function loadStageVideo(index) {
   video.load();
 }
 
-/* ── Stop Video ──────────────────────────────────────────── */
-
+/* ── Stop video ── */
 function stopStageVideo(video) {
   if (!video) return;
 
@@ -605,8 +603,7 @@ function stopStageVideo(video) {
   video.classList.remove("is-active");
 }
 
-/* ── Play Active Video ───────────────────────────────────── */
-
+/* ── Play active video ── */
 function playStageVideo(video) {
   if (!video) return;
 
@@ -619,8 +616,7 @@ function playStageVideo(video) {
   }
 }
 
-/* ── Switch Stage ────────────────────────────────────────── */
-
+/* ── Switch stage ── */
 function goToStageCard(index) {
   if (!stageCards.length || !stageVideos.length) return;
 
@@ -692,7 +688,8 @@ function goToStageCard(index) {
     );
   }
 }
-/* ── Center Stage Card ───────────────────────────────────── */
+
+/* ── Center stage card ── */
 function centerStageCard(index) {
   if (!stageCardsTrack || !stageCards[index]) return;
 
@@ -715,7 +712,7 @@ function centerStageCard(index) {
   }, 600);
 }
 
-/* ── Auto Advance ────────────────────────────────────────── */
+/* ── Auto advance ── */
 function startStageAuto() {
   if (stageAutoTimer) return;
 
@@ -732,8 +729,7 @@ function stopStageAuto() {
   stageAutoTimer = null;
 }
 
-/* ── Detect Centered Card ────────────────────────────────── */
-
+/* ── Detect centered card ── */
 function getCardInCenter() {
   if (!stageCardsTrack || !stageCards.length) {
     return 0;
@@ -758,7 +754,7 @@ function getCardInCenter() {
   return closest;
 }
 
-/* ── Manual Stage Scroll ─────────────────────────────────── */
+/* ── Manual stage scroll ── */
 stageCardsTrack?.addEventListener(
   "scroll",
   () => {
@@ -802,18 +798,14 @@ stageCardsTrack?.addEventListener(
   },
   { passive: true }
 );
-/* ── Pause Auto Advance During Interaction ──────────────── */
 
+/* ── Pause auto-advance during interaction ── */
 stageCardsTrack?.addEventListener("mouseenter", stopStageAuto);
-
 stageCardsTrack?.addEventListener("mouseleave", startStageAuto);
-
 stageCardsTrack?.addEventListener("touchstart", stopStageAuto, { passive: true });
-
 stageCardsTrack?.addEventListener("touchend", startStageAuto, { passive: true });
 
-/* ── Initial Stage Setup ─────────────────────────────────── */
-
+/* ── Initial stage setup ── */
 window.addEventListener("load", () => {
   if (!stageCards.length) return;
 
@@ -847,9 +839,9 @@ window.addEventListener("load", () => {
   startStageAuto();
 });
 
-/* ──────────────────────────────────────────────────────────
-      6. TRUST — ANIMATED STAT COUNTERS
-      ────────────────────────────────────────────────────────── */
+/* ════════════════════════════════════════════════════════════
+   8. TRUST — SCROLL-REVEAL / ANIMATED STAT COUNTERS
+   ════════════════════════════════════════════════════════════ */
 (function () {
   const items = document.querySelectorAll(".trust [data-fade]");
   if (!items.length) return;
@@ -902,95 +894,75 @@ window.addEventListener("load", () => {
   counters.forEach((el) => observer.observe(el));
 })();
 
-const slider = document.getElementById("slider__track");
-const dotsContainer = document.getElementById("slider__dots");
-
-let sliderCardsObserver = null;
-let activeSliderDot = null;
-/* ──────────────────────────────────────────────────────────
-   WORK SLIDER — PERFORMANCE OPTIMIZED
-────────────────────────────────────────────────────────── */
-
+/* ════════════════════════════════════════════════════════════
+   9. WORK SECTION — SLIDER (progress bar, arrows, counter, filters)
+   ════════════════════════════════════════════════════════════ */
 const workSlider = document.getElementById("slider__track");
 const workProgress = document.getElementById("work-progress");
 const workFilters = document.querySelectorAll(".work__filter");
 const workCards = document.querySelectorAll(".slider__card:not(.slider__card--cta)");
 const newWebsiteBtn = document.getElementById("startProjectBtn");
-
 const workCurrentEl = document.getElementById("slider-current");
 const workTotalEl = document.getElementById("slider-total");
 
 let sliderProgressRaf = null;
 let workCardsObserver = null;
 
-/* ── Update Progress ────────────────────────────────────── */
-
+/* ── Update progress ── */
 function updateProgress() {
   if (!workSlider || !workProgress) return;
-
   const maxScroll = workSlider.scrollWidth - workSlider.clientWidth;
-
   if (maxScroll <= 0) {
     workProgress.style.transform = "scaleX(0)";
     return;
   }
-
   const progress = workSlider.scrollLeft / maxScroll;
   workProgress.style.transform = `scaleX(${progress})`;
 }
 
-/* ── Schedule Progress Update ───────────────────────────── */
-
+/* ── Schedule progress update (rAF-throttled) ── */
 function requestProgressUpdate() {
   if (sliderProgressRaf !== null) return;
-
   sliderProgressRaf = requestAnimationFrame(() => {
     updateProgress();
     sliderProgressRaf = null;
   });
 }
 
-/* ── Slider Scroll ──────────────────────────────────────── */
-
+/* ── Slider scroll (arrow buttons) ── */
 function scrollSlider(direction) {
   if (!workSlider) return;
-
   workSlider.scrollBy({
     left: direction * 220,
     behavior: "smooth"
   });
 }
-
 window.scrollSlider = scrollSlider;
-
-/* ── Optimized Scroll Listener ──────────────────────────── */
 
 workSlider?.addEventListener("scroll", requestProgressUpdate, { passive: true });
 
-/* ──────────────────────────────────────────────────────────
-   WORK COUNTER
-   ────────────────────────────────────────────────────────── */
+/* ── Work counter ("N of total") — respects hidden (filtered) cards ── */
 function initWorkCounter() {
   if (!workSlider || !workCards.length) return;
 
   const cards = Array.from(workCards).filter((card) => !card.classList.contains("hidden"));
 
   if (workTotalEl) {
-    workTotalEl.textContent = cards.length; // ✅ من غير padStart
+    workTotalEl.textContent = cards.length;
+  }
+  if (workCurrentEl) {
+    workCurrentEl.textContent = cards.length ? 1 : 0;
   }
 
   workCardsObserver?.disconnect();
-
   workCardsObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
-
         const index = cards.indexOf(entry.target);
         if (index === -1) return;
-
         if (workCurrentEl) {
-          workCurrentEl.textContent = index + 1; // ✅ من غير padStart
+          workCurrentEl.textContent = index + 1;
         }
       });
     },
@@ -999,28 +971,47 @@ function initWorkCounter() {
       threshold: 0.6
     }
   );
-
   cards.forEach((card) => workCardsObserver.observe(card));
 }
-/* ──────────────────────────────────────────────────────────
-   INITIAL SLIDER POSITION
-   ────────────────────────────────────────────────────────── */
 
+/* ── Filtering ── */
+function applyFilter(filterValue) {
+  if (!workCards.length) return;
+
+  workCards.forEach((card) => {
+    const matches = filterValue === "all" || card.dataset.category === filterValue;
+    card.classList.toggle("hidden", !matches);
+  });
+
+  if (workSlider) {
+    workSlider.scrollTo({ left: 0, behavior: "auto" });
+  }
+
+  initWorkCounter();
+  updateProgress();
+}
+
+workFilters.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    workFilters.forEach((b) => b.classList.remove("is-active"));
+    btn.classList.add("is-active");
+    applyFilter(btn.dataset.filter);
+  });
+});
+
+/* ── Initial slider position ── */
 window.addEventListener("load", () => {
   if (!workSlider || !workCards.length) return;
-
   const card = workCards[2];
-
   if (card) {
     workSlider.scrollLeft = card.offsetLeft - workSlider.offsetWidth / 2 + card.offsetWidth / 2;
   }
-
   updateProgress();
   initWorkCounter();
 });
-/* ──────────────────────────────────────────────────────────
-        8. WIZARD — "NEW PROJECT" REQUEST MODAL
-        ────────────────────────────────────────────────────────── */
+/* ════════════════════════════════════════════════════════════
+   10. WIZARD — "NEW PROJECT" REQUEST MODAL
+   ════════════════════════════════════════════════════════════ */
 let wizardSelectedType = "";
 
 function openWizard() {
@@ -1043,6 +1034,7 @@ function closeWizard() {
 
   wizardSelectedType = "";
 }
+
 function goToWizardStep(stepNumber) {
   const activeIndex = stepNumber - 1;
 
@@ -1054,6 +1046,7 @@ function goToWizardStep(stepNumber) {
     dot?.classList.toggle("done", index < stepNumber);
   });
 }
+
 ctaCard?.addEventListener("click", openWizard);
 newWebsiteBtn?.addEventListener("click", openWizard);
 wizardCloseBtn?.addEventListener("click", closeWizard);
