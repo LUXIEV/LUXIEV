@@ -862,7 +862,7 @@ input[type="search"]::-webkit-search-cancel-button {
     font-family: var(--font-Inter);
     font-size: 16px;
     line-height: 1.5;
-    font-weight: 400;
+    font-weight: 300;
     color: var(--color-text);
 }
 .trust__title--italic {
@@ -871,7 +871,7 @@ input[type="search"]::-webkit-search-cancel-button {
 /* ── Description ── */
 .trust__description {
     font-family: var(--font-Inter);
-    max-width: 520px;
+    max-width: 440px;
     margin: 0;
     font-size: 13px;
     line-height: 2;
@@ -910,7 +910,7 @@ input[type="search"]::-webkit-search-cancel-button {
     align-items: center;
     gap: 8px;
     color: var(--color-text);
-    text-decoration: none;
+    text-decoration: underline;
     text-underline-offset: 4px;
     transition: opacity 0.3s ease;
 }
@@ -956,7 +956,7 @@ input[type="search"]::-webkit-search-cancel-button {
     padding: 30px 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
 }
 
 /* ── Filters ── */
@@ -1040,17 +1040,19 @@ input[type="search"]::-webkit-search-cancel-button {
    shadow/overflow-clip live on `.slider__card-media` instead, so
    the caption underneath doesn't get clipped or shadowed. ── */
 .slider__card {
-    flex: 0 0 200px;
-    height: auto;
-    display: flex;
-    flex-direction: column;
+    flex: 0 0 var(--card-width);
+    height: var(--card-height);
+    background-color: var(--color-beige);
     position: relative;
     overflow: hidden;
-    background: transparent;
-    box-shadow: none;
     scroll-snap-align: center;
+    box-shadow: var(--shadow-card);
     transform: scale(0.95);
-    transition: transform 0.3s ease;
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        opacity 0.3s ease;
 }
 
 .slider__card:hover {
@@ -1463,7 +1465,7 @@ input[type="search"]::-webkit-search-cancel-button {
     font-weight: 300;
     letter-spacing: 1px;
     margin-bottom: 10px;
-    color: var(--color-subtext);
+    color: var(--color-black);
 }
 
 .project-cta__text {
@@ -1498,7 +1500,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .project-cta__button {
-    padding: 7px 20px;
+    padding: 6px 25px;
     font-size: 10px;
     font-weight: 300;
     letter-spacing: 2px;
@@ -1609,8 +1611,8 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .project-cta__guarantee-text {
-    color: var(--color-text-body);
-    font-size: 11px;
+    color: var(--color-subtext);
+    font-size: 12px;
     line-height: 1.6;
     margin: 0;
 }
@@ -1686,15 +1688,15 @@ input[type="search"]::-webkit-search-cancel-button {
 .site-footer__icons {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
 }
 
 .site-footer__icons a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 20px;
-    height: 20px;
+    width: 13px;
+    height: 15px;
     color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     transition: color 0.3s ease;
@@ -1702,8 +1704,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .site-footer__icons a svg {
     display: block;
-    width: 20px;
-    height: 20px;
+
     fill: currentColor;
     opacity: 0.65;
     transition:
