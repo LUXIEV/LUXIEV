@@ -285,10 +285,6 @@
                 text-decoration: none;
             }
 
-            /* ════════════════════════════════════════════════════════════
-   LUX AI
-   ════════════════════════════════════════════════════════════ */
-
             .ai-button {
                 position: relative;
 
@@ -299,58 +295,47 @@
 
                 border: 0;
                 outline: none;
-
                 background: transparent;
 
                 color: var(--color-black);
 
                 font-family: var(--font-Inter);
                 font-size: 10px;
-                font-weight: 300;
-
+                font-weight: 400;
                 line-height: 1;
-
                 letter-spacing: 2px;
                 text-transform: uppercase;
 
                 white-space: nowrap;
-
                 cursor: pointer;
             }
 
-            /* Luxury underline */
+            .ai-button span {
+                position: relative;
+            }
 
-            .ai-button::after {
+            .ai-button span::after {
                 content: "";
 
                 position: absolute;
-
                 left: 0;
-                bottom: 2px;
+                bottom: -5px;
 
                 width: 100%;
                 height: 1px;
 
                 background: currentColor;
 
-                transform: scaleX(0.35);
+                transform: scaleX(0.38);
                 transform-origin: left center;
 
                 transition: transform 0.35s ease;
             }
 
-            /* Hover */
-
-            .ai-button:hover::after {
+            .ai-button:hover span::after,
+            .ai-button:focus-visible span::after {
                 transform: scaleX(1);
             }
-
-            /* Keyboard focus */
-
-            .ai-button:focus-visible::after {
-                transform: scaleX(1);
-            }
-
             /* ════════════════════════════════════════════════════════════
    HAMBURGER
    ════════════════════════════════════════════════════════════ */
@@ -2280,10 +2265,12 @@
                 <div class="header__actions">
                     <!-- Account -->
 
-                   
+                    
 
                     <!-- LUX AI -->
-                    <button class="ai-button" type="button" onclick="openAI()" aria-label="Open LUX AI">LUX</button>
+                    <button class="ai-button" type="button" onclick="openAI()" aria-label="Open LUX AI">
+                        <span>EM</span>
+                    </button>
                 </div>
             </div>
         </header>
