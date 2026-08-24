@@ -834,6 +834,73 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 /* ════════════════════════════════════════════════════════════
+   Global card-size variables — Laptop / Desktop override
+   حطي الجزء ده مرة واحدة (مثلاً في نفس الملف اللي فيه :root
+   الأساسي)، وهو هيتحكم في كل الكروت اللي بتستخدم
+   var(--card-width) / var(--card-height) — يعني Work slider
+   و Stage cards مع بعض من نفس المكان.
+   ════════════════════════════════════════════════════════════ */
+@media (min-width: 1024px) {
+    :root {
+        --card-width: 340px;
+        --card-height: 260px;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════
+   STAGE SECTION — Laptop / Desktop responsive overrides
+   ════════════════════════════════════════════════════════════ */
+@media (min-width: 1024px) {
+    /* ── Content (heading, tagline, CTA) ── */
+    .stage__content {
+        padding: 0 40px;
+    }
+
+    .stage__content h1 {
+        font-size: 34px;
+        letter-spacing: 5px;
+        margin-bottom: 12px;
+    }
+
+    .stage__content p {
+        font-size: 16px;
+        letter-spacing: 1.5px;
+        margin-bottom: 32px;
+    }
+
+    .stage__cta {
+        padding: 12px 36px;
+        letter-spacing: 4px;
+        font-size: 13px;
+    }
+
+    /* ── Cards row ── */
+    .stage__cards {
+        padding-bottom: 40px;
+    }
+
+    .stage__cards-track {
+        gap: 20px;
+        padding: 16px 40px;
+    }
+
+    /* ── Stage project card ── */
+    .stage__card-overlay {
+        height: 20%;
+    }
+
+    .stage__card-link {
+        font-size: 15px;
+        gap: 9px;
+    }
+
+    .icon-external {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════
    11. TRUST SECTION
    ════════════════════════════════════════════════════════════ */
 .trust {
@@ -910,9 +977,13 @@ input[type="search"]::-webkit-search-cancel-button {
     align-items: center;
     gap: 8px;
     color: var(--color-text);
+    font-family: var(--font-Inter);
+    font-size: 13px;
+
     text-decoration: none;
     text-underline-offset: 4px;
     transition: opacity 0.3s ease;
+    cursor: default;
 }
 .trust__more:hover {
     opacity: 0.55;
@@ -943,6 +1014,43 @@ input[type="search"]::-webkit-search-cancel-button {
         font-size: 30px;
     }
 }
+/* ── Responsive: laptop (بنفس الـ breakpoint اللي استخدمناه في
+   Work و Stage عشان الاتساق) ── */
+@media (min-width: 1024px) {
+    .trust {
+        padding: 80px 40px;
+    }
+
+    .trust__content {
+        max-width: 1100px;
+        gap: 70px;
+    }
+
+    .trust__title {
+        font-size: 38px;
+        margin-bottom: 28px;
+    }
+
+    .trust__description {
+        max-width: 560px;
+        font-size: 15px;
+        line-height: 2;
+    }
+
+    .trust__meta {
+        max-width: 1100px;
+        margin-top: 32px;
+        font-size: 13px;
+    }
+
+    .trust__meta-info {
+        gap: 8px;
+    }
+
+    .trust__more {
+        gap: 10px;
+    }
+}
 /* ════════════════════════════════════════════════════════════
    12. WORK SECTION (project slider)
    ════════════════════════════════════════════════════════════ */
@@ -952,7 +1060,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .work__container {
-    background: var(--color-beige);
+    background: var(--color-white);
     padding: 40px 20px;
     display: flex;
     flex-direction: column;
@@ -1159,7 +1267,7 @@ input[type="search"]::-webkit-search-cancel-button {
     padding-top: 5px;
 
     display: grid;
-    grid-template-columns: 60px minmax(0, 1fr) 60px;
+    grid-template-columns: 60px minmax(0, 1fr) 80px;
     align-items: center;
 
     column-gap: 24px;
@@ -1168,7 +1276,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .slider__counter {
     display: flex;
     align-items: baseline;
-    gap: 15px;
+    gap: 5px;
 
     font-size: 10px;
     line-height: 1;
@@ -1238,7 +1346,110 @@ input[type="search"]::-webkit-search-cancel-button {
 
     will-change: transform;
 }
+/* ════════════════════════════════════════════════════════════
+   WORK SECTION — Laptop / Desktop responsive overrides
+   Base styles above stay as-is (mobile). This block only scales
+   things up from min-width: 1024px.
+   ════════════════════════════════════════════════════════════ */
+@media (min-width: 1024px) {
+    .work__container {
+        padding: 80px 60px;
+        gap: 15px;
+    }
 
+    /* ── Filters ── */
+    .work__filters {
+        gap: 32px;
+    }
+
+    .work__filter {
+        font-size: 12px;
+        letter-spacing: 1.5px;
+        padding-bottom: 5px;
+    }
+
+    /* ── Slider intro copy ── */
+    .slider__label {
+        font-size: 13px;
+        letter-spacing: 9px;
+        margin-bottom: 30px;
+    }
+
+    .slider__title {
+        font-size: 26px;
+        letter-spacing: 1.5px;
+        margin-bottom: 10px;
+    }
+
+    .slider__text {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+
+    /* ── Slider track ── */
+    .slider__track {
+        gap: 20px;
+        padding: 25px;
+    }
+
+    /* استخدمي ده */
+    .slider__card--cta {
+        gap: 16px; /* flex + height بيجوا من المتغير العام تلقائي */
+    }
+
+    .slider__card-media {
+        height: 260px;
+    }
+
+    .slider__card-overlay {
+        height: 20%;
+    }
+
+    .slider__card-link {
+        font-size: 15px;
+        gap: 9px;
+    }
+
+    /* ── Caption ── */
+    .slider__card-caption {
+        padding-top: 16px;
+    }
+
+    .slider__card-type {
+        font-size: 12px;
+        letter-spacing: 1.5px;
+    }
+
+    .slider__card-name {
+        font-size: 13px;
+    }
+
+    /* ── Slider controls ── */
+    .slider__controls {
+        grid-template-columns: 90px minmax(0, 1fr) 100px;
+        column-gap: 32px;
+        padding-top: 10px;
+    }
+
+    .slider__counter {
+        font-size: 13px;
+        gap: 7px;
+    }
+
+    .slider__arrows {
+        gap: 28px;
+    }
+
+    .slider__arrow {
+        width: 26px;
+        height: 26px;
+    }
+
+    .slider__arrow svg {
+        width: 26px;
+        height: 26px;
+    }
+}
 /* ════════════════════════════════════════════════════════════
    13. WIZARD MODAL ("New Project" request flow)
    ════════════════════════════════════════════════════════════ */
@@ -1442,7 +1653,7 @@ input[type="search"]::-webkit-search-cancel-button {
    14. PROJECT CTA SECTION
    ════════════════════════════════════════════════════════════ */
 .project-cta {
-    background: var(--color-beiga);
+    background: var(--color-beige);
     padding: 30px 20px;
 }
 
@@ -1612,6 +1823,80 @@ input[type="search"]::-webkit-search-cancel-button {
     font-size: 12px;
     line-height: 1.6;
     margin: 0;
+}
+
+/* ── Responsive: laptop ── */
+@media (min-width: 1024px) {
+    .project-cta {
+        padding: 80px 40px;
+    }
+
+    .project-cta__label {
+        font-size: 12px;
+        letter-spacing: 9px;
+        margin-bottom: 30px;
+    }
+
+    .project-cta__title {
+        font-size: 30px;
+        letter-spacing: 1.5px;
+        margin-bottom: 18px;
+    }
+
+    .project-cta__text {
+        font-size: 15px;
+        margin-bottom: 32px;
+    }
+
+    /* ── Actions row ── */
+    .project-cta__wrap {
+        margin-bottom: 50px;
+    }
+
+    .project-cta__actions {
+        gap: 24px;
+    }
+
+    .project-cta__divider {
+        height: 30px;
+    }
+
+    .project-cta__button {
+        padding: 11px 38px;
+        font-size: 12px;
+        letter-spacing: 2.5px;
+    }
+
+    .project-cta__divider-line {
+        width: 160px;
+        margin-top: 24px;
+        margin-bottom: 24px;
+    }
+
+    /* ── Lower section: guarantees ── */
+    .project-cta__lower {
+        gap: 90px;
+    }
+
+    .project-cta__guarantees {
+        padding-left: 16px;
+    }
+
+    .project-cta__guarantee {
+        gap: 14px;
+        margin: 34px 0;
+    }
+
+    .project-cta__guarantee-icon {
+        width: 6px;
+        height: 6px;
+        top: 7px;
+    }
+
+    .project-cta__guarantee-text {
+        font-size: 14px;
+        line-height: 1.7;
+    }
 }
 /* =========================
    OUR STORY
@@ -1829,6 +2114,129 @@ input[type="search"]::-webkit-search-cancel-button {
         font-size: 6.5px;
 
         line-height: 1.4;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════
+   STORY SECTION
+   ════════════════════════════════════════════════════════════ */
+
+.story {
+    position: relative;
+
+    width: 100%;
+    min-height: 498px;
+
+    display: flex;
+    align-items: center;
+
+    background-image: url("/assets/images/luxiev.jpeg");
+    background-size: cover;
+    background-position: center;
+
+    overflow: hidden;
+}
+
+.story__overlay {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.story__content {
+    position: relative;
+    z-index: 1;
+
+    width: 50%;
+    max-width: 600px;
+
+    margin-left: 10%;
+    padding: 80px 0;
+
+    color: var(--color-white);
+}
+
+.story__label {
+    display: block;
+
+    margin-bottom: 25px;
+
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 6px;
+}
+
+.story__title {
+    margin: 0 0 25px;
+
+    font-size: clamp(42px, 5vw, 72px);
+    font-weight: 400;
+    line-height: 0.95;
+}
+
+.story__text {
+    max-width: 450px;
+
+    margin: 0;
+
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.8;
+}
+
+.story__support {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+
+    max-width: 400px;
+
+    margin-top: 45px;
+}
+
+.story__support-line {
+    flex-shrink: 0;
+
+    width: 30px;
+    height: 1px;
+
+    margin-top: 9px;
+
+    background: currentColor;
+}
+
+.story__support p {
+    margin: 0;
+
+    font-size: 11px;
+    line-height: 1.7;
+    opacity: 0.8;
+}
+
+/* ════════════════════════════════════════════════════════════
+   MOBILE
+   ════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    .story {
+        min-height: 230px;
+    }
+
+    .story__content {
+        width: auto;
+        max-width: none;
+
+        margin: 0;
+        padding: 60px 25px;
+    }
+
+    .story__title {
+        font-size: 48px;
+    }
+
+    .story__text {
+        max-width: 100%;
     }
 }
 /* ════════════════════════════════════════════════════════════
