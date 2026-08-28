@@ -930,7 +930,7 @@ input[type="search"]::-webkit-search-cancel-button {
     font-size: 16px;
     line-height: 1.5;
     font-weight: 300;
-    color: var(--color-text);
+    color: var(--color-subtext);
 }
 .trust__title--italic {
     font-weight: 300;
@@ -946,48 +946,7 @@ input[type="search"]::-webkit-search-cancel-button {
     letter-spacing: 0.02em;
     color: var(--color-subtext);
 }
-/* ── Meta row (year / focus + "View More" link) ── */
-.trust__meta {
-    width: 100%;
-    max-width: 780px;
-    margin: 20px auto 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    font-family: var(--font-Inter);
-    font-size: 11px;
-    line-height: 1.4;
-    font-weight: 300;
-    color: var(--color-subtext);
-}
-.trust__meta-info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 5px;
-    text-align: right;
-}
-.trust__meta-item {
-    display: flex;
-    gap: 4px;
-    justify-content: flex-end;
-}
-.trust__more {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--color-text);
-    font-family: var(--font-Inter);
-    font-size: 13px;
 
-    text-decoration: none;
-    text-underline-offset: 4px;
-    transition: opacity 0.3s ease;
-    cursor: default;
-}
-.trust__more:hover {
-    opacity: 0.55;
-}
 /* ── Responsive: mobile ── */
 @media (max-width: 767px) {
     .trust {
@@ -1050,6 +1009,219 @@ input[type="search"]::-webkit-search-cancel-button {
     .trust__more {
         gap: 10px;
     }
+}
+
+/* ============================================================
+   HERO SECTION — big image → intro text → action buttons → cards
+   ============================================================ */
+
+.hero {
+    width: 100%;
+}
+
+/* ── Big image ── */
+.hero__media {
+    width: 100%;
+    max-height: 500px;
+    overflow: hidden;
+}
+sage__video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ── Intro text under the image ── */
+
+.hero__label {
+    display: block;
+    margin-bottom: 25px;
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 6px;
+}
+.hero__title {
+    margin: 0 0 25px;
+    font-size: clamp(42px, 5vw, 72px);
+    font-weight: 400;
+    line-height: 0.95;
+}
+.hero__text {
+    max-width: 450px;
+    margin: 0 auto;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.8;
+}
+
+/* ── Two buttons separated by a divider ── */
+.hero__actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 16px;
+    padding: 20px 0;
+}
+.hero__divider {
+    flex-shrink: 0;
+    width: 1px;
+    height: 24px;
+    align-self: center;
+    background: rgba(0, 0, 0, 0.2);
+}
+.hero__button {
+    padding: 6px 25px;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: inherit;
+    transition:
+        background 0.35s ease,
+        color 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease;
+}
+.hero__button--outline {
+    background: transparent;
+    border: 1px solid var(--color-black);
+    color: var(--color-black);
+}
+.hero__button--outline:hover {
+    background: var(--color-black);
+    color: var(--color-white);
+}
+.hero__button--filled {
+    background: var(--color-black);
+    border: 1px solid var(--color-black);
+    color: var(--color-white);
+}
+.hero__button--filled:hover {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+    opacity: 0.9;
+}
+
+/* ── Slider wrapper ── */
+.hero__slider {
+    width: 100%;
+}
+
+/* ── Slider track ── */
+.hero__track {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 0 10px;
+    width: 100%;
+}
+.hero__track::-webkit-scrollbar {
+    display: none;
+}
+
+/* ── Slider card
+   The card itself stays fully transparent with no shadow; the
+   shadow/overflow-clip live on `.hero__card-media` instead, so
+   the caption underneath doesn't get clipped or shadowed. ── */
+.hero__card {
+    flex: 0 0 var(--card-width);
+    background-color: transparent;
+    position: relative;
+    scroll-snap-align: center;
+    transform: scale(0.95);
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        opacity 0.3s ease;
+}
+.hero__card:hover {
+    transform: scale(1);
+}
+
+/* ── Image container ── */
+.hero__card-media {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 150px;
+    box-shadow: var(--shadow-card);
+}
+.hero__card-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ── Overlay ── */
+.hero__card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 16%;
+    background: var(--color-overlay-card);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.hero__card:hover .hero__card-overlay {
+    opacity: 1;
+}
+
+/* ── Link ── */
+.hero__card-link {
+    color: var(--color-white);
+    font-size: 13px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+/* ── Caption ── */
+
+.hero__card-type {
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--color-text);
+}
+.hero__card-name {
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--color-subtext);
+}
+
+/* ── "Your Project" CTA card ── */
+.hero__card--cta {
+    flex: 0 0 200px;
+    height: 150px;
+    position: relative;
+    scroll-snap-align: center;
+    box-shadow: var(--shadow-card);
+    transform: scale(1);
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease;
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+}
+.hero__card--cta:hover {
+    transform: scale(1);
+    border-color: rgba(0, 0, 0, 0.5);
 }
 /* ════════════════════════════════════════════════════════════
    12. WORK SECTION (project slider)
@@ -1346,6 +1518,7 @@ input[type="search"]::-webkit-search-cancel-button {
 
     will-change: transform;
 }
+
 /* ════════════════════════════════════════════════════════════
    WORK SECTION — Laptop / Desktop responsive overrides
    Base styles above stay as-is (mobile). This block only scales
