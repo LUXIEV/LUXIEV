@@ -191,22 +191,22 @@
                      visible/playing; others are lazily loaded (see script.js) -->
                 <div class="stage__videos">
                     <video class="stage__video is-active" data-index="0" autoplay muted loop playsinline>
-                        <source src="assets/videos/1.mp4" type="video/webm" />
+                        <source src="assets/videos/1.webm" type="video/webm" />
                     </video>
                     <video class="stage__video" data-index="1" muted loop playsinline preload="none">
-                        <source data-src="assets/videos/1.mp4" type="video/webm" />
+                        <source data-src="assets/videos/linea_hero.webm" type="video/webm" />
                     </video>
                     <video class="stage__video" data-index="2" muted loop playsinline preload="none">
-                        <source data-src="assets/videos/1.mp4" type="video/webm" />
+                        <source data-src="assets/videos/maison_hero.webm" type="video/webm" />
                     </video>
                     <video class="stage__video" data-index="3" muted loop playsinline preload="none">
-                        <source data-src="assets/videos/1.mp4" type="video/webm" />
+                        <source data-src="assets/videos/aurele_hero.webm" type="video/webm" />
                     </video>
                     <video class="stage__video" data-index="4" muted loop playsinline preload="none">
-                        <source data-src="assets/videos/1.mp4" type="video/webm" />
+                        <source data-src="assets/videos/maison_hero.webm" type="video/webm" />
                     </video>
                     <video class="stage__video" data-index="5" muted loop playsinline preload="none">
-                        <source data-src="assets/videos/1.mp4" type="video/webm" />
+                        <source data-src="assets/videos/maison_hero.webm" type="video/webm" />
                     </video>
                 </div>
 
@@ -252,7 +252,7 @@
                             <article class="stage__card" data-index="2">
                                 <img src="assets/images/3.webp" alt="" class="stage__card-image" loading="lazy" />
                                 <div class="stage__card-overlay">
-                                    <a href="#" class="stage__card-link">
+                                    <a href="https://e-commerce-luxie-v.vercel.app/" class="stage__card-link">
                                         Visit Website
                                         <i data-lucide="arrow-up-right" class="icon-external" aria-hidden="true"></i>
                                     </a>
@@ -313,302 +313,158 @@
                         </p>
                     </div>
                 </div>
-                <div class="trust__meta">
-                    <span class="trust__more">LUXIEV </span>
-                    <div class="trust__meta-info">
-                        <div class="trust__meta-item">
-                            <span>Year —</span>
-                            <span>2026</span>
-                        </div>
-                        <div class="trust__meta-item">
-                            <span>Focus —</span>
-                            <span>Digital Experiences</span>
-                        </div>
+            </section>
+            <!-- ============================================================
+     HERO — big image, action buttons, then project cards
+     ============================================================ -->
+            <section class="hero">
+                <!-- Big image -->
+                <div class="hero__media">
+                    <video class="sage__video" autoplay muted loop playsinline>
+                        <source src="assets/videos/hero-serum-wide.webm" type="video/webm" />
+                    </video>
+                </div>
+
+                <!-- Two buttons separated by a divider -->
+                <div class="hero__actions">
+                    <button class="hero__button hero__button--outline">Learn More</button>
+                    <span class="hero__divider"></span>
+                    <button id="startProjectBtn" class="hero__button hero__button--filled">NEW Website NOW</button>
+                </div>
+
+                <!-- Section cards (project slider) -->
+                <div class="hero__slider">
+                    <div class="hero__track" id="heroTrack">
+                        <article class="hero__card" data-category="E-commerce">
+                            <div class="hero__card-media">
+                                <img src="assets/images/3.webp" alt="Project preview" class="hero__card-image" />
+                                <div class="hero__card-overlay">
+                                    <a href="#" target="_blank" rel="noopener" class="hero__card-link">
+                                        Visit Website
+                                        <i data-lucide="arrow-up-right" class="icon-external" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="hero__card" data-category="E-commerce">
+                            <div class="hero__card-media">
+                                <img
+                                    src="assets/images/3.webp"
+                                    alt="Project preview"
+                                    loading="lazy"
+                                    class="hero__card-image" />
+                                <div class="hero__card-overlay">
+                                    <a href="#" target="_blank" rel="noopener" class="hero__card-link">
+                                        Visit Website
+                                        <i data-lucide="arrow-up-right" class="icon-external" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="hero__card" data-category="E-commerce">
+                            <div class="hero__card-media">
+                                <img
+                                    src="assets/images/3.webp"
+                                    alt="Project preview"
+                                    loading="lazy"
+                                    class="hero__card-image" />
+                                <div class="hero__card-overlay">
+                                    <a href="#" target="_blank" rel="noopener" class="hero__card-link">
+                                        Visit Website
+                                        <i data-lucide="arrow-up-right" class="icon-external" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="hero__card" data-category="personal">
+                            <div class="hero__card-media">
+                                <img
+                                    src="assets/images/2.png"
+                                    alt="Project preview"
+                                    loading="lazy"
+                                    class="hero__card-image" />
+                                <div class="hero__card-overlay">
+                                    <a href="#" target="_blank" rel="noopener" class="hero__card-link">
+                                        Visit Website
+                                        <i data-lucide="arrow-up-right" class="icon-external" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="hero__card" data-category="landing page">
+                            <div class="hero__card-media">
+                                <img
+                                    src="assets/images/luxiev.webp"
+                                    alt="Project preview"
+                                    loading="lazy"
+                                    class="hero__card-image" />
+                                <div class="hero__card-overlay">
+                                    <a href="#" target="_blank" rel="noopener" class="hero__card-link">
+                                        Visit Website
+                                        <i data-lucide="arrow-up-right" class="icon-external" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="hero__card" data-category="landing page">
+                            <div class="hero__card-media">
+                                <img
+                                    src="assets/images/luxiev.webp"
+                                    alt="Project preview"
+                                    loading="lazy"
+                                    class="hero__card-image" />
+                                <div class="hero__card-overlay">
+                                    <a href="#" target="_blank" rel="noopener" class="hero__card-link">
+                                        Visit Website
+                                        <i data-lucide="arrow-up-right" class="icon-external" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="hero__card" data-category="websites">
+                            <div class="hero__card-media">
+                                <img
+                                    src="assets/images/luxiev.webp"
+                                    alt="Project preview"
+                                    loading="lazy"
+                                    class="hero__card-image" />
+                                <div class="hero__card-overlay">
+                                    <a href="#" target="_blank" rel="noopener" class="hero__card-link">
+                                        Visit Website
+                                        <i data-lucide="arrow-up-right" class="icon-external" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="hero__card" data-category="websites">
+                            <div class="hero__card-media">
+                                <img
+                                    src="assets/images/luxiev.webp"
+                                    alt="Project preview"
+                                    loading="lazy"
+                                    class="hero__card-image" />
+                                <div class="hero__card-overlay">
+                                    <a href="#" target="_blank" rel="noopener" class="hero__card-link">
+                                        Visit Website
+                                        <i data-lucide="arrow-up-right" class="icon-external" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
                     </div>
                 </div>
             </section>
-
+           
             <!-- ============================================================
                  PROJECT CTA — "Start Your Project" banner + guarantees
                  ============================================================ -->
-
-            <section id="work" class="work">
-                <div class="work__container">
-                    <div class="work__filters">
-                        <button type="button" class="work__filter is-active" data-filter="all">Websites</button>
-                        <button type="button" class="work__filter" data-filter="E-commerce">E-commerce</button>
-                        <button type="button" class="work__filter" data-filter="landing page">landing page</button>
-                        <button type="button" class="work__filter" data-filter="personal">personal</button>
-                    </div>
-                    <div class="slider">
-                        <div class="slider__track" id="slider__track">
-                            <article class="slider__card" data-category="E-commerce">
-                                <div class="slider__card-media">
-                                    <img src="assets/images/4.jpg" alt="Project preview" class="slider__card-image" />
-
-                                    <div class="slider__card-overlay">
-                                        <a href="#" target="_blank" rel="noopener" class="slider__card-link">
-                                            Visit Website
-                                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="slider__card-caption">
-                                    <h3 class="slider__card-type">Luxury Fashion</h3>
-                                    <p class="slider__card-name">Maison Noir</p>
-                                </div>
-                            </article>
-                            <article class="slider__card" data-category="E-commerce">
-                                <div class="slider__card-media">
-                                    <img
-                                        src="assets/images/2.png"
-                                        alt="Project preview"
-                                        loading="lazy"
-                                        class="slider__card-image" />
-
-                                    <div class="slider__card-overlay">
-                                        <a href="#" target="_blank" rel="noopener" class="slider__card-link">
-                                            Visit Website
-                                            <i
-                                                data-lucide="arrow-up-right"
-                                                class="icon-external"
-                                                aria-hidden="true"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="slider__card-caption">
-                                    <h3 class="slider__card-type">Luxury Fashion</h3>
-                                    <p class="slider__card-name">Maison Noir</p>
-                                </div>
-                            </article>
-
-                            <article class="slider__card" data-category="E-commerce">
-                                <div class="slider__card-media">
-                                    <img
-                                        src="assets/images/4.jpg"
-                                        alt="Project preview"
-                                        loading="lazy"
-                                        class="slider__card-image" />
-
-                                    <div class="slider__card-overlay">
-                                        <a href="#" target="_blank" rel="noopener" class="slider__card-link">
-                                            Visit Website
-                                            <i
-                                                data-lucide="arrow-up-right"
-                                                class="icon-external"
-                                                aria-hidden="true"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="slider__card-caption">
-                                    <h3 class="slider__card-type">Luxury Fashion</h3>
-                                    <p class="slider__card-name">Maison Noir</p>
-                                </div>
-                            </article>
-                            <article class="slider__card" data-category="personal">
-                                <div class="slider__card-media">
-                                    <img
-                                        src="assets/images/5.jpg"
-                                        alt="Project preview"
-                                        loading="lazy"
-                                        class="slider__card-image" />
-
-                                    <div class="slider__card-overlay">
-                                        <a href="#" target="_blank" rel="noopener" class="slider__card-link">
-                                            Visit Website
-                                            <i
-                                                data-lucide="arrow-up-right"
-                                                class="icon-external"
-                                                aria-hidden="true"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="slider__card-caption">
-                                    <h3 class="slider__card-type">Luxury Fashion</h3>
-                                    <p class="slider__card-name">Maison Noir</p>
-                                </div>
-                            </article>
-                            <article class="slider__card" data-category="landing page">
-                                <div class="slider__card-media">
-                                    <img
-                                        src="assets/images/6.jpg"
-                                        alt="Project preview"
-                                        loading="lazy"
-                                        class="slider__card-image" />
-
-                                    <div class="slider__card-overlay">
-                                        <a href="#" target="_blank" rel="noopener" class="slider__card-link">
-                                            Visit Website
-                                            <i
-                                                data-lucide="arrow-up-right"
-                                                class="icon-external"
-                                                aria-hidden="true"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="slider__card-caption">
-                                    <h3 class="slider__card-type">Luxury Fashion</h3>
-                                    <p class="slider__card-name">Maison Noir</p>
-                                </div>
-                            </article>
-                            <article class="slider__card" data-category="landing page">
-                                <div class="slider__card-media">
-                                    <img
-                                        src="assets/images/6.jpg"
-                                        alt="Project preview"
-                                        loading="lazy"
-                                        class="slider__card-image" />
-
-                                    <div class="slider__card-overlay">
-                                        <a href="#" target="_blank" rel="noopener" class="slider__card-link">
-                                            Visit Website
-                                            <i
-                                                data-lucide="arrow-up-right"
-                                                class="icon-external"
-                                                aria-hidden="true"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="slider__card-caption">
-                                    <h3 class="slider__card-type">Luxury Fashion</h3>
-                                    <p class="slider__card-name">Maison Noir</p>
-                                </div>
-                            </article>
-                            <article class="slider__card" data-category="websites">
-                                <div class="slider__card-media">
-                                    <img
-                                        src="assets/images/6.jpg"
-                                        alt="Project preview"
-                                        loading="lazy"
-                                        class="slider__card-image" />
-
-                                    <div class="slider__card-overlay">
-                                        <a href="#" target="_blank" rel="noopener" class="slider__card-link">
-                                            Visit Website
-                                            <i
-                                                data-lucide="arrow-up-right"
-                                                class="icon-external"
-                                                aria-hidden="true"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="slider__card-caption">
-                                    <h3 class="slider__card-type">Luxury Fashion</h3>
-                                    <p class="slider__card-name">Maison Noir</p>
-                                </div>
-                            </article>
-                            <article class="slider__card" data-category="websites">
-                                <div class="slider__card-media">
-                                    <img
-                                        src="assets/images/6.jpg"
-                                        alt="Project preview"
-                                        loading="lazy"
-                                        class="slider__card-image" />
-
-                                    <div class="slider__card-overlay">
-                                        <a href="#" target="_blank" rel="noopener" class="slider__card-link">
-                                            Visit Website
-                                            <i
-                                                data-lucide="arrow-up-right"
-                                                class="icon-external"
-                                                aria-hidden="true"></i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <div class="slider__card-caption">
-                                    <h3 class="slider__card-type">Luxury Fashion</h3>
-                                    <p class="slider__card-name">Maison Noir</p>
-                                </div>
-                            </article>
-                        </div>
-
-                        <div class="slider__controls">
-                            <div class="slider__counter">
-                                <span id="slider-current"></span>
-                                <span class="slider__counter-sep">OF</span>
-                                <span id="slider-total"></span>
-                            </div>
-
-                            <div class="slider__progress-wrap">
-                                <div class="slider__progress-track">
-                                    <div class="slider__progress-fill" id="work-progress"></div>
-                                </div>
-                            </div>
-
-                            <div class="slider__arrows">
-                                <button
-                                    type="button"
-                                    class="slider__arrow slider__arrow--prev"
-                                    onclick="scrollSlider(-1)"
-                                    aria-label="Scroll left">
-                                    <svg
-                                        width="20"
-                                        height="20"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="1"
-                                        aria-hidden="true"
-                                        focusable="false">
-                                        <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                </button>
-                                <button
-                                    type="button"
-                                    class="slider__arrow slider__arrow--next"
-                                    onclick="scrollSlider(1)"
-                                    aria-label="Scroll right">
-                                    <svg
-                                        width="20"
-                                        height="20"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="1"
-                                        aria-hidden="true"
-                                        focusable="false">
-                                        <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section class="project-cta">
-                <div class="project-cta__wrap">
-                    <div class="project-cta__actions">
-                        <button class="project-cta__button project-cta__button--outline">Learn More</button>
-                        <span class="project-cta__divider"></span>
-                        <button id="startProjectBtn" class="project-cta__button project-cta__button--filled">
-                            NEW Website NOW
-                        </button>
-                    </div>
-                </div>
-
-                <div class="project-cta__lower">
-                    <div class="project-cta__info">
-                        <ul class="project-cta__guarantees">
-                            <li class="project-cta__guarantee">
-                                <span class="project-cta__guarantee-icon" aria-hidden="true"></span>
-                                <p class="project-cta__guarantee-text">You won't pay until you receive your website</p>
-                            </li>
-                            <li class="project-cta__guarantee">
-                                <span class="project-cta__guarantee-icon" aria-hidden="true"></span>
-                                <p class="project-cta__guarantee-text">Your order can be canceled at any time</p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
         </main>
 
         <!-- ============================================================
