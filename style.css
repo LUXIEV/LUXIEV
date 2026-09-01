@@ -353,14 +353,14 @@ main {
 }
 
 .stage__content h1 {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 400;
     letter-spacing: 3px;
     margin-bottom: 5px;
 }
 
 .stage__content p {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 300;
     letter-spacing: 1px;
     opacity: 0.9;
