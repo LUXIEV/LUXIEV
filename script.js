@@ -18,14 +18,6 @@
 // Header
 const header = document.querySelector(".header");
 
-// Stage
-const stageCta = document.getElementById("stage-cta");
-const workSection = document.getElementById("work");
-const stageCardsTrack = document.getElementById("stage__cards-track");
-const stageCards = document.querySelectorAll(".stage__card");
-const stageVideos = document.querySelectorAll(".stage__video");
-const stageDotsWrap = document.getElementById("stage-dots");
-
 // Wizard
 const wizardOverlay = document.getElementById("wizard-overlay");
 const wizardCloseBtn = document.getElementById("wizard-close");
@@ -203,23 +195,48 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 })();
+/* ════════════════════════════════════════════════════════════
+   STAGE
+   ════════════════════════════════════════════════════════════ */
 
 /* ──────────────────────────────────────────────────────────
-   6. STAGE — SCROLL-TO-WORK (CTA BUTTON)
+   Stage Elements
    ────────────────────────────────────────────────────────── */
+
+const stageSection = document.getElementById("stage");
+const stageCta = document.getElementById("stage-cta");
+const workSection = document.getElementById("work");
+const stageCardsTrack = document.getElementById("stage__cards-track");
+const stageCards = document.querySelectorAll(".stage__card");
+const stageVideos = document.querySelectorAll(".stage__video");
+const stageDotsWrap = document.getElementById("stage-dots");
+
+/* ════════════════════════════════════════════════════════════
+   1. STAGE — SCROLL-TO-WORK
+   ════════════════════════════════════════════════════════════ */
+
 function scrollToWork(e) {
   if (!stageCta || !workSection) return;
+
   e.preventDefault();
+
   const headerOffset = header?.offsetHeight || 0;
   const elementPosition = workSection.getBoundingClientRect().top;
+
   const offsetPosition = elementPosition + window.scrollY - headerOffset;
-  window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+
+  window.scrollTo({
+    top: offsetPosition,
+    behavior: "smooth"
+  });
 }
+
 stageCta?.addEventListener("click", scrollToWork);
 
 /* ════════════════════════════════════════════════════════════
-   7. STAGE — VIDEO SWITCHER + CARD SLIDER + AUTO-ADVANCE
+   2. STAGE — STATE
    ════════════════════════════════════════════════════════════ */
+
 let stageCurrentIndex = 0;
 
 let stageAutoTimer = null;
@@ -227,13 +244,19 @@ let stageScrollEndTimer = null;
 let stageCenterScrollTimer = null;
 
 let stageIsScrolling = false;
+let stageIsVisible = false;
+let stageIsSwitching = false;
 
-/* ── Stage dots ── */
+/* ════════════════════════════════════════════════════════════
+   3. STAGE — DOTS
+   ════════════════════════════════════════════════════════════ */
+
 stageCards.forEach((_, index) => {
   const dot = document.createElement("button");
 
   dot.type = "button";
   dot.className = "stage__dot" + (index === 0 ? " is-active" : "");
+
   dot.setAttribute("aria-label", `Go to slide ${index + 1}`);
 
   dot.addEventListener("click", () => {
@@ -245,7 +268,10 @@ stageCards.forEach((_, index) => {
 
 const stageDots = document.querySelectorAll(".stage__dot");
 
-/* ── Load video only when needed ── */
+/* ════════════════════════════════════════════════════════════
+   4. STAGE — VIDEO LOADING
+   ════════════════════════════════════════════════════════════ */
+
 function loadStageVideo(index) {
   const video = stageVideos[index];
 
@@ -261,28 +287,34 @@ function loadStageVideo(index) {
   video.load();
 }
 
-/* ── Stop video ── */
+/* ════════════════════════════════════════════════════════════
+   5. STAGE — STOP VIDEO
+   ════════════════════════════════════════════════════════════ */
+
 function stopStageVideo(video) {
   if (!video) return;
 
   video.pause();
 
   /*
-   * Resetting currentTime prevents the old video from continuing
-   * from its previous position when it becomes active again.
+   * Reset video position so the next activation
+   * starts from the beginning.
    */
   try {
     video.currentTime = 0;
   } catch (error) {
-    // Ignore videos that are not ready for seeking yet.
+    // Ignore videos that are not ready for seeking.
   }
 
   video.classList.remove("is-active");
 }
 
-/* ── Play active video ── */
+/* ════════════════════════════════════════════════════════════
+   6. STAGE — PLAY VIDEO
+   ════════════════════════════════════════════════════════════ */
+
 function playStageVideo(video) {
-  if (!video) return;
+  if (!video || !stageIsVisible) return;
 
   video.classList.add("is-active");
 
@@ -293,13 +325,20 @@ function playStageVideo(video) {
   }
 }
 
-/* ── Switch stage ── */
+/* ════════════════════════════════════════════════════════════
+   7. STAGE — SWITCH CARD / VIDEO
+   ════════════════════════════════════════════════════════════ */
+
 function goToStageCard(index) {
+  if (!stageIsVisible) return;
+
   if (!stageCards.length || !stageVideos.length) return;
 
   if (index < 0 || index >= stageCards.length) return;
 
   if (index === stageCurrentIndex) return;
+
+  if (stageIsSwitching) return;
 
   const previousIndex = stageCurrentIndex;
   const previousVideo = stageVideos[previousIndex];
@@ -307,43 +346,66 @@ function goToStageCard(index) {
 
   if (!nextVideo) return;
 
-  /* Load requested video */
+  stageIsSwitching = true;
+
+  /* ── Load requested video ── */
+
   loadStageVideo(index);
 
-  /*
-   * Preload only the next video.
-   * This keeps transitions smoother without loading
-   * all videos at once.
-   */
+  /* ── Preload next video ── */
+
   const nextIndex = (index + 1) % stageVideos.length;
 
   if (nextIndex !== index) {
     loadStageVideo(nextIndex);
   }
 
+  /* ── Switch when video is ready ── */
+
   const switchNow = () => {
-    /* Stop previous video completely */
+    /*
+     * If user has already left the Stage
+     * while the video was loading, abort.
+     */
+    if (!stageIsVisible) {
+      stageIsSwitching = false;
+      return;
+    }
+
+    /* Stop previous video */
+
     if (previousVideo && previousVideo !== nextVideo) {
       stopStageVideo(previousVideo);
     }
 
     /* Update cards */
+
     stageCards[previousIndex]?.classList.remove("is-active");
+
     stageCards[index]?.classList.add("is-active");
 
     /* Update dots */
+
     stageDots[previousIndex]?.classList.remove("is-active");
+
     stageDots[index]?.classList.add("is-active");
 
-    /* Update current index before playing */
+    /* Update index */
+
     stageCurrentIndex = index;
 
-    /* Start ONLY the active video */
+    /* Play new video */
+
     playStageVideo(nextVideo);
 
-    /* Center selected card */
+    /* Center card */
+
     centerStageCard(index);
+
+    stageIsSwitching = false;
   };
+
+  /* ── Video already ready ── */
 
   if (nextVideo.readyState >= 3) {
     try {
@@ -351,22 +413,29 @@ function goToStageCard(index) {
     } catch (error) {}
 
     switchNow();
-  } else {
-    nextVideo.addEventListener(
-      "canplay",
-      () => {
-        try {
-          nextVideo.currentTime = 0;
-        } catch (error) {}
 
-        switchNow();
-      },
-      { once: true }
-    );
+    return;
   }
+
+  /* ── Wait for video ── */
+
+  nextVideo.addEventListener(
+    "canplay",
+    () => {
+      try {
+        nextVideo.currentTime = 0;
+      } catch (error) {}
+
+      switchNow();
+    },
+    { once: true }
+  );
 }
 
-/* ── Center stage card ── */
+/* ════════════════════════════════════════════════════════════
+   8. STAGE — CENTER CARD
+   ════════════════════════════════════════════════════════════ */
+
 function centerStageCard(index) {
   if (!stageCardsTrack || !stageCards[index]) return;
 
@@ -389,24 +458,39 @@ function centerStageCard(index) {
   }, 600);
 }
 
-/* ── Auto advance ── */
+/* ════════════════════════════════════════════════════════════
+   9. STAGE — AUTO ADVANCE
+   ════════════════════════════════════════════════════════════ */
+
 function startStageAuto() {
+  if (!stageIsVisible) return;
+
   if (stageAutoTimer) return;
 
   stageAutoTimer = setInterval(() => {
+    if (!stageIsVisible) {
+      stopStageAuto();
+      return;
+    }
+
     const next = (stageCurrentIndex + 1) % stageCards.length;
+
     goToStageCard(next);
-  }, 3000);
+  }, 5000);
 }
 
 function stopStageAuto() {
   if (!stageAutoTimer) return;
 
   clearInterval(stageAutoTimer);
+
   stageAutoTimer = null;
 }
 
-/* ── Detect centered card ── */
+/* ════════════════════════════════════════════════════════════
+   10. STAGE — DETECT CENTER CARD
+   ════════════════════════════════════════════════════════════ */
+
 function getCardInCenter() {
   if (!stageCardsTrack || !stageCards.length) {
     return 0;
@@ -431,10 +515,15 @@ function getCardInCenter() {
   return closest;
 }
 
-/* ── Manual stage scroll ── */
+/* ════════════════════════════════════════════════════════════
+   11. STAGE — MANUAL SCROLL
+   ════════════════════════════════════════════════════════════ */
+
 stageCardsTrack?.addEventListener(
   "scroll",
   () => {
+    if (!stageIsVisible) return;
+
     if (stageIsScrolling) return;
 
     clearTimeout(stageScrollEndTimer);
@@ -444,78 +533,181 @@ stageCardsTrack?.addEventListener(
 
       const centered = getCardInCenter();
 
-      if (centered === stageCurrentIndex) return;
+      if (centered === stageCurrentIndex || stageIsSwitching) {
+        return;
+      }
 
       const previousIndex = stageCurrentIndex;
+
       const previousVideo = stageVideos[previousIndex];
+
       const currentVideo = stageVideos[centered];
 
+      if (!currentVideo) return;
+
+      /* Load selected video */
+
       loadStageVideo(centered);
+
+      /* Stop previous */
 
       if (previousVideo) {
         stopStageVideo(previousVideo);
       }
 
+      /* Update cards */
+
       stageCards[previousIndex]?.classList.remove("is-active");
+
       stageCards[centered]?.classList.add("is-active");
 
+      /* Update dots */
+
       stageDots[previousIndex]?.classList.remove("is-active");
+
       stageDots[centered]?.classList.add("is-active");
+
+      /* Update index */
 
       stageCurrentIndex = centered;
 
-      if (currentVideo) {
-        try {
-          currentVideo.currentTime = 0;
-        } catch (error) {}
+      /* Start current video */
 
-        playStageVideo(currentVideo);
-      }
+      try {
+        currentVideo.currentTime = 0;
+      } catch (error) {}
+
+      playStageVideo(currentVideo);
     }, 150);
   },
   { passive: true }
 );
 
-/* ── Pause auto-advance during interaction ── */
-stageCardsTrack?.addEventListener("mouseenter", stopStageAuto);
-stageCardsTrack?.addEventListener("mouseleave", startStageAuto);
-stageCardsTrack?.addEventListener("touchstart", stopStageAuto, { passive: true });
-stageCardsTrack?.addEventListener("touchend", startStageAuto, { passive: true });
+/* ════════════════════════════════════════════════════════════
+   12. STAGE — PAUSE AUTO DURING INTERACTION
+   ════════════════════════════════════════════════════════════ */
 
-/* ── Initial stage setup ── */
+stageCardsTrack?.addEventListener("mouseenter", stopStageAuto);
+
+stageCardsTrack?.addEventListener("mouseleave", startStageAuto);
+
+stageCardsTrack?.addEventListener("touchstart", stopStageAuto, { passive: true });
+
+stageCardsTrack?.addEventListener(
+  "touchend",
+  () => {
+    if (stageIsVisible) {
+      startStageAuto();
+    }
+  },
+  { passive: true }
+);
+
+/* ════════════════════════════════════════════════════════════
+   13. STAGE — VISIBILITY CONTROLLER
+   ════════════════════════════════════════════════════════════ */
+
+function pauseStage() {
+  stageIsVisible = false;
+
+  stopStageAuto();
+
+  stageVideos.forEach((video) => {
+    if (!video) return;
+
+    video.pause();
+  });
+}
+
+function resumeStage() {
+  if (!stageSection) return;
+
+  stageIsVisible = true;
+
+  const activeVideo = stageVideos[stageCurrentIndex];
+
+  if (activeVideo) {
+    activeVideo.classList.add("is-active");
+
+    activeVideo.play().catch(() => {});
+  }
+
+  startStageAuto();
+}
+
+/* ════════════════════════════════════════════════════════════
+   14. STAGE — INTERSECTION OBSERVER
+   ════════════════════════════════════════════════════════════ */
+
+const stageObserver = new IntersectionObserver(
+  ([entry]) => {
+    if (entry.isIntersecting) {
+      resumeStage();
+    } else {
+      pauseStage();
+    }
+  },
+  {
+    threshold: 0.15
+  }
+);
+
+if (stageSection) {
+  stageObserver.observe(stageSection);
+}
+
+/* ════════════════════════════════════════════════════════════
+   15. STAGE — INITIAL SETUP
+   ════════════════════════════════════════════════════════════ */
+
 window.addEventListener("load", () => {
   if (!stageCards.length) return;
 
   const firstVideo = stageVideos[0];
 
-  /* First card */
+  /* ── First card ── */
+
   stageCards[0]?.classList.add("is-active");
+
   stageDots[0]?.classList.add("is-active");
 
-  /* Load and play ONLY first video */
+  /* ── Load first video ── */
+
   if (firstVideo) {
     loadStageVideo(0);
 
     firstVideo.classList.add("is-active");
-
-    firstVideo.play().catch(() => {});
   }
 
   /*
-   * Preload only the second video.
-   * We don't load all six videos on startup.
+   * Preload only second video.
+   * Other videos remain unloaded.
    */
+
   if (stageVideos.length > 1) {
     loadStageVideo(1);
   }
 
-  /* Center first card */
+  /* ── Center first card ── */
+
   centerStageCard(0);
 
-  /* Start automatic slider */
-  startStageAuto();
+  /*
+   * IMPORTANT:
+   *
+   * Do NOT call:
+   *
+   * startStageAuto()
+   *
+   * or:
+   *
+   * firstVideo.play()
+   *
+   * here.
+   *
+   * IntersectionObserver controls them.
+   */
 });
-
 /* ════════════════════════════════════════════════════════════
    8.TRUST
    ════════════════════════════════════════════════════════════ */
