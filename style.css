@@ -232,7 +232,7 @@ main {
     height: 1px;
 
     background-color: var(--color-black);
-opacity: 0.50;
+opacity: 0.60;
     transform-origin: center;
     transition: transform var(--transition-menu);
 }
@@ -276,7 +276,6 @@ opacity: 0.50;
     width: auto;
     height: auto;
 }
-
 /* ─────────────────────────────────────────────────────────
    Account
    ───────────────────────────────────────────────────────── */
@@ -284,6 +283,7 @@ opacity: 0.50;
 .header__actions {
     display: flex;
     align-items: center;
+    justify-content: center;
 
     margin-left: auto;
 }
@@ -313,8 +313,9 @@ opacity: 0.50;
     height: 20px;
 
     flex-shrink: 0;
-}
 
+    opacity: 0.60;
+}
 /* ─────────────────────────────────────────────────────────
    Accessibility
    ───────────────────────────────────────────────────────── */
