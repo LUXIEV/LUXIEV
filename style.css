@@ -157,13 +157,13 @@ main {
 
 .header {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: var(--navbar-height);
+    inset: 0 0 auto;
     z-index: 1000;
 
-    background: transparent;
+    width: 100%;
+    height: var(--navbar-height);
+
+    background-color: transparent;
     box-shadow: none;
 
     transition:
@@ -171,9 +171,12 @@ main {
         box-shadow var(--header-transition-duration) ease;
 }
 
-/* Header after scrolling */
+/* ─────────────────────────────────────────────────────────
+   Scrolled State
+   ───────────────────────────────────────────────────────── */
+
 .header--scrolled {
-    background: var(--color-white);
+    background-color: var(--color-white);
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
@@ -189,7 +192,7 @@ main {
     justify-content: space-between;
 
     width: 100%;
-    height: var(--navbar-height);
+    height: 100%;
     padding: 0 10px;
 }
 
@@ -204,22 +207,26 @@ main {
     align-items: center;
     justify-content: center;
 
-    width: 22px;
+    width: 24px;
     height: 18px;
     padding: 0;
 
     border: 0;
+    outline: 0;
     background: transparent;
 
     cursor: pointer;
+    flex-shrink: 0;
 }
 
-/* Menu lines */
+/* Menu Lines */
 
 .navbar__menu-btn span {
     position: absolute;
     left: 0;
     top: 50%;
+
+    display: block;
 
     width: 100%;
     height: 1px;
@@ -230,7 +237,7 @@ main {
     transition: transform var(--transition-menu);
 }
 
-/* Closed state */
+/* Closed State */
 
 .navbar__menu-btn span:first-child {
     transform: translateY(-4px);
@@ -240,7 +247,7 @@ main {
     transform: translateY(4px);
 }
 
-/* Open state — X */
+/* Open State */
 
 .navbar__menu-btn.active span:first-child {
     transform: rotate(45deg);
@@ -254,14 +261,20 @@ main {
    Logo
    ───────────────────────────────────────────────────────── */
 
-.navbar__logo {
+.navbar__logo-link {
     position: absolute;
     top: 50%;
     left: 50%;
 
-    transform: translate(-50%, -50%);
-
     display: block;
+
+    transform: translate(-50%, -50%);
+}
+
+.navbar__logo {
+    display: block;
+    width: auto;
+    height: auto;
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -275,7 +288,7 @@ main {
     margin-left: auto;
 }
 
-.header__actions a {
+.header__account {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -285,12 +298,45 @@ main {
 
     color: var(--color-black);
     text-decoration: none;
+
+    transition: opacity 0.2s ease;
 }
 
-.header__actions svg {
+.header__account:hover {
+    opacity: 0.7;
+}
+
+.header__account-icon {
     display: block;
+
+    width: 20px;
+    height: 20px;
+
+    flex-shrink: 0;
 }
 
+/* ─────────────────────────────────────────────────────────
+   Accessibility
+   ───────────────────────────────────────────────────────── */
+
+.navbar__menu-btn:focus-visible,
+.header__account:focus-visible,
+.navbar__logo-link:focus-visible {
+    outline: 1px solid var(--color-black);
+    outline-offset: 4px;
+}
+
+/* ─────────────────────────────────────────────────────────
+   Reduced Motion
+   ───────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+    .header,
+    .navbar__menu-btn span,
+    .header__account {
+        transition: none;
+    }
+}
 /* ════════════════════════════════════════════════════════════
    10. STAGE SECTION
    ════════════════════════════════════════════════════════════ */
@@ -606,7 +652,7 @@ main {
     font-weight: 300;
     letter-spacing: 0.015em;
 
-    color: var(--color-subtext);
+    color: var(--color-black);
     margin-bottom: 10px;
 }
 
