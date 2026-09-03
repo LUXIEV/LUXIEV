@@ -31,60 +31,46 @@
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
-  <header class="header" role="banner">
-    <div class="header__container">
+        <header class="header" role="banner">
+            <div class="header__container">
+                <!-- Menu -->
+                <button
+                    class="navbar__menu-btn"
+                    id="navbarMenuBtn"
+                    type="button"
+                    aria-label="Menu"
+                    aria-controls="dropdownMenu"
+                    aria-expanded="false">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </button>
 
-        <!-- Menu -->
-        <button
-            class="navbar__menu-btn"
-            id="navbarMenuBtn"
-            type="button"
-            aria-label="Menu"
-            aria-controls="dropdownMenu"
-            aria-expanded="false">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-        </button>
+                <!-- Logo -->
+                <a class="navbar__logo-link" href="#" aria-label="LUXIEV Home">
+                    <img class="navbar__logo" src="/assets/images/logos/LUXIEV-logo.svg" alt="LUXIEV" />
+                </a>
 
-        <!-- Logo -->
-        <a
-            class="navbar__logo-link"
-            href="#"
-            aria-label="LUXIEV Home">
-            <img
-                class="navbar__logo"
-                src="/assets/images/logos/LUXIEV-logo.svg"
-                alt="LUXIEV">
-        </a>
-
-        <!-- Account -->
-        <div class="header__actions">
-            <a
-                class="header__account"
-                href="pages/account.html"
-                id="account-icon"
-                aria-label="Account">
-
-                <svg
-                    class="header__account-icon"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                    focusable="false">
-                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
-                    <circle cx="12" cy="7" r="4"/>
-                </svg>
-
-            </a>
-        </div>
-
-    </div>
-</header>
+                <!-- Account -->
+                <div class="header__actions">
+                    <a class="header__account" href="pages/account.html" id="account-icon" aria-label="Account">
+                        <svg
+                            class="header__account-icon"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                            focusable="false">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </header>
         <main>
             <section id="stage" class="stage">
                 <!-- Background video stack: only the `.is-active` video is
@@ -212,26 +198,18 @@
                 </div>
             </section>
 
-            <section class="actions">
-                <div class="project-cta__actions">
-                    <button class="project-cta__button project-cta__button--outline">Learn More</button>
-                    <span class="project-cta__divider"></span>
-                    <button id="startProjectBtn" class="project-cta__button project-cta__button--filled">
-                        NEW Website NOW
-                    </button>
-                </div>
-            </section>
             <!-- ============================================================
                  WORK — horizontally scrollable project slider
                  ============================================================ -->
             <section id="work" class="work">
                 <div class="work__container">
-                    <div class="work__content">
-                        <h2 class="work__title">Work</h2>
-                        <p class="work__text">Where intention takes shape</p>
-                    </div>
+                    <img class="work__img" src="assets/images/luxiev.webp" />
 
                     <div class="slider">
+                        <div class="work__content">
+                            <h2 class="work__title">Work</h2>
+                            <p class="work__text">Where intention takes shape</p>
+                        </div>
                         <div class="slider__track" id="slider__track">
                             <article class="slider__card" data-category="E-commerce">
                                 <div class="slider__card-media">
@@ -455,15 +433,23 @@
                     </div>
                 </div>
             </section>
-
+            <div class="actions">
+                <div class="project-cta__actions">
+                    <button class="project-cta__button project-cta__button--outline">Learn More</button>
+                    <span class="project-cta__divider"></span>
+                    <button id="startProjectBtn" class="project-cta__button project-cta__button--filled">
+                        NEW Website NOW
+                    </button>
+                </div>
+            </div>
             <section class="our-story" aria-labelledby="our-story-title">
                 <div class="our-story__content">
                     <span class="our-story__eyebrow"> Our Story </span>
 
                     <p class="our-story__text">
-                        LUXIEV creates refined digital experiences where design, technology, and identity come together.
-                        Every detail is thoughtfully crafted to create experiences that feel timeless, distinctive, and
-                        effortlessly modern.
+                        Everything begins with a feeling Before words before form before anything is defined there is a
+                        moment of knowing LUXIEV was born from that moment — from the desire to give meaning to what is
+                        felt and form to what is imagined.
                     </p>
                 </div>
             </section>
