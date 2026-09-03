@@ -920,9 +920,7 @@ const workProgress = document.getElementById("work-progress");
 const workFilters = document.querySelectorAll(".work__filter");
 const workCards = document.querySelectorAll(".slider__card:not(.slider__card--cta)");
 const newWebsiteBtn = document.getElementById("startProjectBtn");
-const workCurrentEl = document.getElementById("slider-current");
-const workTotalEl = document.getElementById("slider-total");
-
+const workCategoryEl = document.getElementById("slider-category");
 let sliderProgressRaf = null;
 let workCardsObserver = null;
 
@@ -959,28 +957,26 @@ window.scrollSlider = scrollSlider;
 
 workSlider?.addEventListener("scroll", requestProgressUpdate, { passive: true });
 
-/* ── Work counter ("N of total") — respects hidden (filtered) cards ── */
 function initWorkCounter() {
   if (!workSlider || !workCards.length) return;
 
   const cards = Array.from(workCards).filter((card) => !card.classList.contains("hidden"));
 
-  if (workTotalEl) {
-    workTotalEl.textContent = cards.length;
-  }
-  if (workCurrentEl) {
-    workCurrentEl.textContent = cards.length ? 1 : 0;
-  }
-
   workCardsObserver?.disconnect();
+
   workCardsObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
+
         const index = cards.indexOf(entry.target);
+
         if (index === -1) return;
-        if (workCurrentEl) {
-          workCurrentEl.textContent = index + 1;
+
+        if (workCategoryEl) {
+          const category = entry.target.dataset.category || "PROJECT";
+
+          workCategoryEl.textContent = category.toUpperCase();
         }
       });
     },
@@ -989,9 +985,18 @@ function initWorkCounter() {
       threshold: 0.6
     }
   );
-  cards.forEach((card) => workCardsObserver.observe(card));
-}
 
+  cards.forEach((card) => {
+    workCardsObserver.observe(card);
+  });
+
+  // Set the initial category
+  if (cards.length && workCategoryEl) {
+    const initialCategory = cards[0].dataset.category || "PROJECT";
+
+    workCategoryEl.textContent = initialCategory.toUpperCase();
+  }
+}
 /* ── Filtering ── */
 function applyFilter(filterValue) {
   if (!workCards.length) return;
