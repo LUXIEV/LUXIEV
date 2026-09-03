@@ -31,46 +31,60 @@
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
-        <header class="header" role="banner">
-            <div class="header__container">
-                <!-- Menu -->
-                <button
-                    class="navbar__menu-btn"
-                    id="navbarMenuBtn"
-                    aria-label="Menu"
-                    aria-controls="dropdownMenu"
-                    aria-expanded="false">
-                    <span></span>
-                    <span></span>
-                </button>
+  <header class="header" role="banner">
+    <div class="header__container">
 
-                <!-- Logo -->
-                <a href="#" aria-label="LUXIEV Home">
-                    <img class="navbar__logo" src="/assets/images/logos/LUXIEV-logo.svg" alt="LUXIEV" />
-                </a>
+        <!-- Menu -->
+        <button
+            class="navbar__menu-btn"
+            id="navbarMenuBtn"
+            type="button"
+            aria-label="Menu"
+            aria-controls="dropdownMenu"
+            aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </button>
 
-                <!-- Account -->
-                <div class="header__actions">
-                    <a href="pages/account.html" id="account-icon" aria-label="Account">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            aria-hidden="true"
-                            focusable="false">
-                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                            <circle cx="12" cy="7" r="4" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </header>
+        <!-- Logo -->
+        <a
+            class="navbar__logo-link"
+            href="#"
+            aria-label="LUXIEV Home">
+            <img
+                class="navbar__logo"
+                src="/assets/images/logos/LUXIEV-logo.svg"
+                alt="LUXIEV">
+        </a>
+
+        <!-- Account -->
+        <div class="header__actions">
+            <a
+                class="header__account"
+                href="pages/account.html"
+                id="account-icon"
+                aria-label="Account">
+
+                <svg
+                    class="header__account-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                    focusable="false">
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+
+            </a>
+        </div>
+
+    </div>
+</header>
         <main>
             <section id="stage" class="stage">
                 <!-- Background video stack: only the `.is-active` video is
