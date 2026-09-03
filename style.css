@@ -1,4 +1,4 @@
-/* ════════════════════════════════════════════════════════════
+ /* ════════════════════════════════════════════════════════════
    TABLE OF CONTENTS
    1.  Custom Properties (Design Tokens)
    2.  Reset
@@ -654,7 +654,7 @@ main {
     font-weight: 300;
     letter-spacing: 0.015em;
 
-    color: var(--color-black);
+    color: var(--color-subtext);
     margin-bottom: 10px;
 }
 
@@ -672,7 +672,7 @@ main {
     font-weight: 300;
     letter-spacing: 0.02em;
 
-    color: var(--color-text);
+    color: var(--color-subtext);
     text-decoration: none;
 
     cursor: pointer;
@@ -724,12 +724,6 @@ main {
     }
 }
 
-.actions {
-    padding: 20px 20px;
-    margin: auto;
-    display: flex;
-    background: var(--color-white);
-}
 /* ════════════════════════════════════════════════════════════
        12. WORK SECTION (project slider)
        ════════════════════════════════════════════════════════════ */
@@ -994,50 +988,65 @@ main {
     transform-origin: left center;
     will-change: transform;
 }
-/* ════════════════════════════════════════════════════════════
-             14. PROJECT CTA SECTION
-             ════════════════════════════════════════════════════════════ */
-.project-cta {
-    background: var(--color-white);
-    padding: 40px 20px;
-}
-.project-cta__label {
-    display: block;
-    font-size: 8px;
-    font-weight: 300;
-    color: var(--color-subtext);
-    letter-spacing: 7px;
-    text-align: center;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-}
-.project-cta__title {
-    font-size: 16px;
-    font-weight: 300;
-    letter-spacing: 1px;
-    margin-bottom: 10px;
-    color: var(--color-black);
-}
-.project-cta__text {
-    font-size: 13px;
-    font-weight: 300;
-    color: var(--color-subtext);
-    margin-bottom: 20px;
-}
-/* ── Actions row ── */
-.project-cta__wrap {
+.actions {
+    padding: 60px 20px;
+    margin: auto;
     display: flex;
-    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    background: var(--color-white);
+    text-align: center;
+    overflow: hidden;
 }
+
+/* ===== Title & Text ===== */
+.actions__content {
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.actions__title {
+    font-family: var(--font-Inter);
+    font-weight: 300;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: var(--color-black);
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: actionsFadeUp 0.8s ease forwards;
+}
+
+.actions__text {
+    font-family: var(--font-Inter);
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 1.7;
+    letter-spacing: 0.3px;
+    color: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: actionsFadeUp 0.8s ease 0.15s forwards;
+}
+
+/* ===== Buttons ===== */
 .project-cta__actions {
     position: relative;
+
     z-index: 1;
     display: flex;
     align-items: center;
     margin: auto;
     flex-wrap: nowrap;
     gap: 16px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: actionsFadeUp 0.8s ease 0.3s forwards;
 }
+
 .project-cta__divider {
     flex-shrink: 0;
     width: 1px;
@@ -1045,106 +1054,70 @@ main {
     align-self: center;
     background: rgba(0, 0, 0, 0.2);
 }
+
 .project-cta__button {
     padding: 6px 25px;
     font-size: 10px;
+    font-family: var(--font-Inter);
     font-weight: 300;
     letter-spacing: 2px;
     text-transform: uppercase;
     cursor: pointer;
-    font-family: inherit;
+
+    position: relative;
+    overflow: hidden;
     transition:
         background 0.35s ease,
         color 0.35s ease,
         box-shadow 0.35s ease,
-        border-color 0.35s ease;
+        border-color 0.35s ease,
+        transform 0.25s ease;
 }
+
+.project-cta__button:active {
+    transform: scale(0.96);
+}
+
 .project-cta__button--outline {
     background: transparent;
     border: 1px solid var(--color-black);
     color: var(--color-black);
 }
+
 .project-cta__button--outline:hover {
     background: var(--color-black);
     color: var(--color-white);
 }
+
 .project-cta__button--filled {
     background: var(--color-black);
     border: 1px solid var(--color-black);
     color: var(--color-white);
 }
+
 .project-cta__button--filled:hover {
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
     opacity: 0.9;
+    transform: translateY(-2px);
 }
-/* Divider line between actions and the guarantees list */
-.project-cta__divider-line {
-    display: block;
-    width: 219px;
-    height: 1px;
-    margin-top: 16px;
-    margin-bottom: 16px;
-    background: var(--color-black);
-    opacity: 0.2;
+
+/* ===== Keyframes ===== */
+@keyframes actionsFadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
-/* ── Lower section: guarantees ── */
-.project-cta__lower {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 60px;
-    max-width: 960px;
-    margin: 0 auto;
-}
-.project-cta__info {
-    flex: 1 1 420px;
-}
-.project-cta__guarantees {
-    position: relative;
-    padding-left: 10px;
-    list-style: none;
-    margin: 0;
-}
-.project-cta__guarantees::before {
-    content: "";
-    position: absolute;
-    top: 4px;
-    bottom: 4px;
-    left: 0;
-    width: 1px;
-    background: var(--color-black);
-    opacity: 0.2;
-}
-.project-cta__guarantee {
-    position: relative;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin: 25px 0;
-    transition: transform 0.25s ease;
-}
-.project-cta__guarantee:first-child {
-    margin-top: 0;
-}
-.project-cta__guarantee:last-child {
-    margin-bottom: 0;
-}
-.project-cta__guarantee:hover {
-    transform: translateX(4px);
-}
-.project-cta__guarantee-icon {
-    position: relative;
-    top: 6px;
-    width: 5px;
-    height: 5px;
-    flex-shrink: 0;
-    border: 1px solid var(--color-text-muted);
-}
-.project-cta__guarantee-text {
-    color: var(--color-subtext);
-    font-size: 12px;
-    line-height: 1.6;
-    margin: 0;
+
+/* اختياري: لو عايز الـ animation يشتغل مع scroll بدل load */
+@media (prefers-reduced-motion: reduce) {
+    .actions__title,
+    .actions__text,
+    .project-cta__actions {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
 }
 
 /* ─────────────────────────────────────────────
@@ -1223,7 +1196,7 @@ main {
 .favorites__title {
     margin: 0;
     font-family: var(--font-Inter);
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 300;
     line-height: 1;
 
