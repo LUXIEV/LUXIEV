@@ -50,23 +50,9 @@
                     <img class="navbar__logo" src="/assets/images/logos/LUXIEV-logo.svg" alt="LUXIEV" />
                 </a>
 
-                <!-- Account -->
                 <div class="header__actions">
-                    <a class="header__account" href="pages/account.html" id="account-icon" aria-label="Account">
-                        <svg
-                            class="header__account-icon"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            aria-hidden="true"
-                            focusable="false">
-                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                            <circle cx="12" cy="7" r="4" />
-                        </svg>
+                    <a class="header__account" href="pages/account.html">
+                        <span class="header__account-text">LUX</span>
                     </a>
                 </div>
             </div>
@@ -202,7 +188,8 @@
                  WORK — horizontally scrollable project slider
                  ============================================================ -->
             <section id="work" class="work">
-                <img class="work__img" src="assets/images/luxiev.webp" />
+                <img class="work__img" src="assets/images/1.jpg" />
+
                 <div class="work__container">
                     <div class="slider">
                         <div class="work__content">
@@ -223,10 +210,6 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="slider__card-caption">
-                                    <h3 class="slider__card-type">Luxury Fashion</h3>
-                                    <p class="slider__card-name">Maison Noir</p>
-                                </div>
                             </article>
                             <article class="slider__card" data-category="E-commerce">
                                 <div class="slider__card-media">
@@ -245,10 +228,6 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="slider__card-caption">
-                                    <h3 class="slider__card-type">Luxury Fashion</h3>
-                                    <p class="slider__card-name">Maison Noir</p>
-                                </div>
                             </article>
                             <article class="slider__card" data-category="E-commerce">
                                 <div class="slider__card-media">
@@ -266,10 +245,6 @@
                                                 aria-hidden="true"></i>
                                         </a>
                                     </div>
-                                </div>
-                                <div class="slider__card-caption">
-                                    <h3 class="slider__card-type">Luxury Fashion</h3>
-                                    <p class="slider__card-name">Maison Noir</p>
                                 </div>
                             </article>
                             <article class="slider__card" data-category="personal">
@@ -289,9 +264,23 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="slider__card-caption">
-                                    <h3 class="slider__card-type">Luxury Fashion</h3>
-                                    <p class="slider__card-name">Maison Noir</p>
+                            </article>
+                            <article class="slider__card" data-category="landing page">
+                                <div class="slider__card-media">
+                                    <img
+                                        src="assets/images/luxiev.webp"
+                                        alt="Project preview"
+                                        loading="lazy"
+                                        class="slider__card-image" />
+                                    <div class="slider__card-overlay">
+                                        <a href="#" target="_blank" rel="noopener" class="slider__card-link">
+                                            Visit Website
+                                            <i
+                                                data-lucide="arrow-up-right"
+                                                class="icon-external"
+                                                aria-hidden="true"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </article>
                             <article class="slider__card" data-category="landing page">
@@ -311,32 +300,6 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="slider__card-caption">
-                                    <h3 class="slider__card-type">Luxury Fashion</h3>
-                                    <p class="slider__card-name">Maison Noir</p>
-                                </div>
-                            </article>
-                            <article class="slider__card" data-category="landing page">
-                                <div class="slider__card-media">
-                                    <img
-                                        src="assets/images/luxiev.webp"
-                                        alt="Project preview"
-                                        loading="lazy"
-                                        class="slider__card-image" />
-                                    <div class="slider__card-overlay">
-                                        <a href="#" target="_blank" rel="noopener" class="slider__card-link">
-                                            Visit Website
-                                            <i
-                                                data-lucide="arrow-up-right"
-                                                class="icon-external"
-                                                aria-hidden="true"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="slider__card-caption">
-                                    <h3 class="slider__card-type">Luxury Fashion</h3>
-                                    <p class="slider__card-name">Maison Noir</p>
-                                </div>
                             </article>
                             <article class="slider__card" data-category="websites">
                                 <div class="slider__card-media">
@@ -355,10 +318,6 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="slider__card-caption">
-                                    <h3 class="slider__card-type">Luxury Fashion</h3>
-                                    <p class="slider__card-name">Maison Noir</p>
-                                </div>
                             </article>
                             <article class="slider__card" data-category="websites">
                                 <div class="slider__card-media">
@@ -376,10 +335,6 @@
                                                 aria-hidden="true"></i>
                                         </a>
                                     </div>
-                                </div>
-                                <div class="slider__card-caption">
-                                    <h3 class="slider__card-type">Luxury Fashion</h3>
-                                    <p class="slider__card-name">Maison Noir</p>
                                 </div>
                             </article>
                         </div>
@@ -432,21 +387,55 @@
                     </div>
                 </div>
             </section>
-            <section class="actions">
-                <div class="actions__content">
-                    <h2 class="actions__title">Let's Build Something Timeless</h2>
-                    <p class="actions__text">
-                        From concept to launch, we craft digital experiences that reflect the essence of true luxury.
-                    </p>
-                </div>
-                <div class="project-cta__actions">
-                    <button class="project-cta__button project-cta__button--outline">Learn More</button>
-                    <span class="project-cta__divider"></span>
-                    <button id="startProjectBtn" class="project-cta__button project-cta__button--filled">
-                        NEW Website NOW
-                    </button>
+
+            <section class="service-cta">
+                <div class="service-cta__content">
+                    <h2 class="service-cta__title">Make Your Brand Stand Apart.</h2>
+
+                    <p class="service-cta__text">Thoughtful design. Distinctive presence. Every detail considered.</p>
+
+                    <div class="service-cta__actions">
+                        <button class="service-cta__button service-cta__button--outline">Learn More</button>
+
+                        <span class="service-cta__divider"></span>
+
+                        <button id="startProjectBtn" class="service-cta__button service-cta__button--filled">
+                            NEW Website NOW
+                        </button>
+                    </div>
                 </div>
             </section>
+            <section class="brand-grid">
+                <article class="brand-cell">
+                    <div class="logo-avenoir" aria-label="Avenoir">AVE<span>N</span>OIR</div>
+                </article>
+
+                <article class="brand-cell">
+                    <div class="logo-north" aria-label="North and Alder">
+                        <svg viewBox="0 0 54 54" aria-hidden="true">
+                            <path
+                                d="M27 3 31.5 20 47 10 34 24 51 27 34 31 47 44 31 34 27 51 23 34 7 44 20 31 3 27 20 23 7 10 23 20Z" />
+                            <circle cx="27" cy="27" r="4.5" />
+                        </svg>
+
+                        <div>
+                            <b>NORTH</b>
+                            <span>&amp; ALDER</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="brand-cell">
+                    <div class="logo-serein" aria-label="Serein">
+                        <span>S</span>EREIN
+                        <small>PARIS · 1998</small>
+                    </div>
+                </article>
+            </section>
+            <!-- ════════════════════════════════════════════════════════════
+     THIS WEEK'S FAVORITES
+     ════════════════════════════════════════════════════════════ -->
+
             <section class="our-story" aria-labelledby="our-story-title">
                 <div class="our-story__content">
                     <span class="our-story__eyebrow"> Our Story </span>
@@ -456,56 +445,6 @@
                         moment of knowing LUXIEV was born from that moment — from the desire to give meaning to what is
                         felt and form to what is imagined.
                     </p>
-                </div>
-            </section>
-            <!-- ════════════════════════════════════════════════════════════
-     THIS WEEK'S FAVORITES
-     ════════════════════════════════════════════════════════════ -->
-
-            <section class="favorites" aria-labelledby="favorites-title">
-                <div class="favorites__header">
-                    <h2 class="favorites__title" id="favorites-title">This Week's Favorites</h2>
-                </div>
-
-                <div class="favorites__grid">
-                    <!-- Card 01 -->
-                    <article class="favorites__item">
-                        <div class="favorites__media">
-                            <img
-                                src="/assets/images/luxiev.webp"
-                                alt="Quiet Luxury"
-                                class="favorites__image"
-                                loading="lazy" />
-                        </div>
-
-                        <h3 class="favorites__name">Quiet Luxury</h3>
-                    </article>
-
-                    <!-- Card 02 -->
-                    <article class="favorites__item">
-                        <div class="favorites__media">
-                            <img
-                                src="/assets/images/luxiev.webp"
-                                alt="Modern Forms"
-                                class="favorites__image"
-                                loading="lazy" />
-                        </div>
-
-                        <h3 class="favorites__name">Modern Forms</h3>
-                    </article>
-
-                    <!-- Card 03 -->
-                    <article class="favorites__item">
-                        <div class="favorites__media">
-                            <img
-                                src="/assets/images/luxiev.webp"
-                                alt="The New Standard"
-                                class="favorites__image"
-                                loading="lazy" />
-                        </div>
-
-                        <h3 class="favorites__name">The New Standard</h3>
-                    </article>
                 </div>
             </section>
         </main>
