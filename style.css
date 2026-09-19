@@ -284,10 +284,11 @@ main {
 }
 
 .header__account {
-    color: var(--color-black);
+    color: var(--color-subtext);
     text-decoration: none;
     font-size: 11px;
-    font-weight: 500;
+    font-weight: 300;
+
     letter-spacing: 0.08em;
 }
 
@@ -439,7 +440,6 @@ main {
     left: 0;
     width: 100%;
     z-index: 2;
-    padding-bottom: 10px;
 }
 
 /* White icon variant for icons sitting on top of the stage video */
@@ -457,7 +457,7 @@ main {
     gap: 10px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    padding: 10px 10px;
+    padding: 30px 20px;
     width: 100%;
     -webkit-overflow-scrolling: touch;
 }
@@ -738,7 +738,7 @@ main {
 
 .work__container {
     padding: 20px 20px 40px;
-
+    background: var(--color-beige);
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -982,7 +982,6 @@ main {
     width: 100%;
     padding: 40px 20px;
     text-align: center;
-    background: var(--color-beige);
 }
 
 .service-cta__content {
@@ -994,7 +993,7 @@ main {
 /* Title */
 
 .service-cta__title {
-    margin: 0 0 28px;
+    margin: 0 0 5px;
 
     font-family: var(--font-Inter);
     font-size: 20px;
@@ -1004,7 +1003,7 @@ main {
     color: var(--color-black);
 }
 .service-cta__text {
-    margin: 10px 0 28px;
+    margin: 10px 0 15px;
 
     font-family: var(--font-Inter);
     font-size: 11px;
@@ -1082,7 +1081,6 @@ main {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     width: 100%;
-    background: var(--color-beige);
 }
 
 .brand-cell {
@@ -1117,12 +1115,12 @@ main {
 .logo-north {
     display: flex;
     align-items: center;
-    gap: 7px;
+    gap: 6px;
     white-space: nowrap;
 }
 
 .logo-north svg {
-    width: 34px;
+    width: 21px;
     height: 34px;
     flex-shrink: 0;
     fill: none;
@@ -1177,16 +1175,16 @@ main {
 
 @media (max-width: 600px) {
     .brand-cell {
-        padding: 14px 3px;
+        padding: 10px 3px;
     }
 
     .logo-avenoir {
-        font-size: 12px;
+        font-size: 10px;
         letter-spacing: 1.5px;
     }
 
     .logo-north {
-        gap: 3px;
+        gap: 4px;
     }
 
     .logo-north svg {
@@ -1206,7 +1204,7 @@ main {
     }
 
     .logo-serein {
-        font-size: 13px;
+        font-size: 10px;
         letter-spacing: 1.5px;
     }
 
@@ -1222,7 +1220,7 @@ main {
 
 .our-story {
     width: 100%;
-
+    background: var(--color-beige);
     padding: 40px 20px;
 }
 
